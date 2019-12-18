@@ -185,6 +185,7 @@
 		2B0D45A623AA7DEE009EE438 /* Quick.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Quick.xcodeproj; path = Vendor/Quick/Quick.xcodeproj; sourceTree = "<group>"; };
 		2B0D45CE23AA7DFD009EE438 /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = Vendor/Nimble/Nimble.xcodeproj; sourceTree = "<group>"; };
 		2B0D45E823AA7E75009EE438 /* ActorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorTests.swift; sourceTree = "<group>"; };
+		2B0D45EB23AA894D009EE438 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2BF5BABC23A507910040ACA7 /* BBFication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BBFication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BF5BABF23A507910040ACA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BF5BAC123A507910040ACA7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -347,6 +348,7 @@
 		2BF5BAB323A507910040ACA7 = {
 			isa = PBXGroup;
 			children = (
+				2B0D45EB23AA894D009EE438 /* README.md */,
 				2B0D45CE23AA7DFD009EE438 /* Nimble.xcodeproj */,
 				2B0D45A623AA7DEE009EE438 /* Quick.xcodeproj */,
 				2BF5BABE23A507910040ACA7 /* BBFication */,
