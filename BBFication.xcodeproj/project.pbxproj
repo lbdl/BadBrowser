@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,16 +17,16 @@
 		2B0D45A023AA753A009EE438 /* ActorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D459F23AA753A009EE438 /* ActorMapper.swift */; };
 		2B0D45A223AA75C2009EE438 /* Mapped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D45A123AA75C2009EE438 /* Mapped.swift */; };
 		2B0D45A423AA76FB009EE438 /* JSONMappingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D45A323AA76FB009EE438 /* JSONMappingProtocol.swift */; };
-		2B0D45E523AA7E2C009EE438 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0D45DD23AA7DFE009EE438 /* Nimble.framework */; };
-		2B0D45E623AA7E32009EE438 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0D45BF23AA7DEE009EE438 /* Quick.framework */; };
-		2B0D45E923AA7E75009EE438 /* ActorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D45E823AA7E75009EE438 /* ActorTests.swift */; };
+		2B0D45E523AA7E2C009EE438 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0D45DD23AA7DFE009EE438 /* Nimble.framework */; platformFilter = ios; };
+		2B0D45E623AA7E32009EE438 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0D45BF23AA7DEE009EE438 /* Quick.framework */; platformFilter = ios; };
+		2B0D45E923AA7E75009EE438 /* ActorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D45E823AA7E75009EE438 /* ActorTests.swift */; platformFilter = ios; };
 		2BF5BAC023A507910040ACA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF5BABF23A507910040ACA7 /* AppDelegate.swift */; };
 		2BF5BAC223A507910040ACA7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF5BAC123A507910040ACA7 /* SceneDelegate.swift */; };
 		2BF5BAC423A507910040ACA7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF5BAC323A507910040ACA7 /* ContentView.swift */; };
 		2BF5BAC623A507930040ACA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BF5BAC523A507930040ACA7 /* Assets.xcassets */; };
 		2BF5BAC923A507930040ACA7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BF5BAC823A507930040ACA7 /* Preview Assets.xcassets */; };
 		2BF5BACC23A507930040ACA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BF5BACA23A507930040ACA7 /* LaunchScreen.storyboard */; };
-		2BF5BAD723A507940040ACA7 /* BBFicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF5BAD623A507940040ACA7 /* BBFicationTests.swift */; };
+		2BF5BAD723A507940040ACA7 /* BBFicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF5BAD623A507940040ACA7 /* BBFicationTests.swift */; platformFilter = ios; };
 		2BF5BAE323AA32570040ACA7 /* BBModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2BF5BAE123AA32570040ACA7 /* BBModel.xcdatamodeld */; };
 		2BF5BAE723AA383B0040ACA7 /* SessionProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF5BAE623AA383B0040ACA7 /* SessionProtocols.swift */; };
 		2BF5BAE923AA3B1E0040ACA7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF5BAE823AA3B1E0040ACA7 /* DataManager.swift */; };
@@ -789,7 +789,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -843,7 +843,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -901,7 +901,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QBJML82M5H;
 				INFOPLIST_FILE = BBFicationTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -923,7 +923,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QBJML82M5H;
 				INFOPLIST_FILE = BBFicationTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

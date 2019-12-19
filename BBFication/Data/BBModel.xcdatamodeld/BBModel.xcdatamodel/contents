@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Actor" representedClassName=".Actor" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="characters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="actor" inverseEntity="Character"/>
     </entity>
-    <entity name="Appearance" representedClassName="Appearance" syncable="YES" codeGenerationType="class">
+    <entity name="Appearance" representedClassName="Appearance" syncable="YES">
         <relationship name="character" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Character" inverseName="appearances" inverseEntity="Character"/>
         <relationship name="episode" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Episode" inverseName="appearances" inverseEntity="Episode"/>
     </entity>
@@ -26,21 +26,21 @@
         <relationship name="character" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Character" inverseName="occupations" inverseEntity="Character"/>
     </entity>
     <entity name="Season" representedClassName=".Season" syncable="YES">
-        <attribute name="number" optional="YES"/>
+        <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="episodes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Episode" inverseName="season" inverseEntity="Episode"/>
         <relationship name="show" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Show" inverseName="seasons" inverseEntity="Show"/>
     </entity>
-    <entity name="Show" representedClassName="Show" syncable="YES" codeGenerationType="class">
-        <attribute name="name" optional="YES"/>
+    <entity name="Show" representedClassName="Show" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="seasons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Season" inverseName="show" inverseEntity="Season"/>
     </entity>
     <elements>
-        <element name="Character" positionX="-911.625" positionY="-30.37890625" width="104.53125" height="28"/>
-        <element name="Occupation" positionX="-504.55859375" positionY="23.95703125" width="128" height="28"/>
-        <element name="Show" positionX="-760.75" positionY="-235.92578125" width="128" height="28"/>
-        <element name="Episode" positionX="-577.16015625" positionY="-195.546875" width="128" height="28"/>
-        <element name="Season" positionX="-404.921875" positionY="-213.74609375" width="128" height="28"/>
-        <element name="Appearance" positionX="-567.6875" positionY="-75.234375" width="128" height="28"/>
         <element name="Actor" positionX="-934.23828125" positionY="142.51171875" width="128" height="28"/>
+        <element name="Appearance" positionX="-567.6875" positionY="-75.234375" width="128" height="73"/>
+        <element name="Character" positionX="-911.625" positionY="-30.37890625" width="104.53125" height="28"/>
+        <element name="Episode" positionX="-577.16015625" positionY="-195.546875" width="128" height="28"/>
+        <element name="Occupation" positionX="-504.55859375" positionY="23.95703125" width="128" height="28"/>
+        <element name="Season" positionX="-404.921875" positionY="-213.74609375" width="128" height="88"/>
+        <element name="Show" positionX="-760.75" positionY="-235.92578125" width="128" height="73"/>
     </elements>
 </model>

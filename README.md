@@ -2,8 +2,7 @@
 
 Essentially a core data and Fetched results project feeding into SwiftUI to acheive  uni directional data flow.
 
-The data layer is an extention of a core data library that wraps a bunch of JSON mapping protocols etc that allow for JSON serialisation to custom objects
-that in turn get written into a SQLite (or whatever) iOS supplied persisted store.
+The data layer is an extention of a core data library that wraps a bunch of JSON mapping protocols etc that allow for JSON serialisation to custom objects that in turn get written into a SQLite (or whatever) iOS supplied persisted store.
 
 Uses submodules for the testing frameworks (Quick/Nimble)
 
