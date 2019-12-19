@@ -11,7 +11,7 @@ import CoreData
 
 final class Actor: NSManagedObject {
     @NSManaged fileprivate(set) var name: String
-    @NSManaged fileprivate(set) var characters: Set<Character>?
+    @NSManaged fileprivate(set) var characters: Character
 
     static func insert(into manager: PersistenceControllerProtocol, raw: ActorRaw) -> Actor {
         let actor: Actor = Actor.fetchActor(forID: raw.name, fromManager: manager)
@@ -20,7 +20,6 @@ final class Actor: NSManagedObject {
 
     static func fetchActor(forID actorName: String, fromManager manager: PersistenceControllerProtocol) -> Actor {
         let predicate = NSPredicate(format: "%K == %d", #keyPath(name), actorName)
-
         let actor = fetchOrCreate(fromManager: manager, matching: predicate) {
             $0.name = actorName
         }
@@ -29,9 +28,9 @@ final class Actor: NSManagedObject {
 
 }
 
-extension Location: Managed {
+extension Actor: Managed {
     static var defaultSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(key: #keyPath(id), ascending: true)]
+        return [NSSortDescriptor(key: #keyPath(name), ascending: true)]
     }
 
     // overidden to stop odd test failures using in memory store DB
@@ -39,5 +38,5 @@ extension Location: Managed {
     // nor always load the models. This only happens
     // when running the entoire test suite, individual sets of
     // tests run fine. Sigh...
-    static var entityName = "Location"
+    static var entityName = "Actor"
 }

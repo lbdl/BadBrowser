@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B0D458B23AA7099009EE438 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D458A23AA7099009EE438 /* Episode.swift */; };
-		2B0D458D23AA70AC009EE438 /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D458C23AA70AC009EE438 /* Season.swift */; };
-		2B0D458F23AA70CB009EE438 /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D458E23AA70CB009EE438 /* Show.swift */; };
-		2B0D459123AA70DA009EE438 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D459023AA70DA009EE438 /* Appearance.swift */; };
 		2B0D459323AA70F3009EE438 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D459223AA70F3009EE438 /* Character.swift */; };
 		2B0D459523AA7103009EE438 /* Occupation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D459423AA7103009EE438 /* Occupation.swift */; };
 		2B0D459723AA710E009EE438 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D459623AA710E009EE438 /* Actor.swift */; };
@@ -20,6 +16,8 @@
 		2B0D45E523AA7E2C009EE438 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0D45DD23AA7DFE009EE438 /* Nimble.framework */; platformFilter = ios; };
 		2B0D45E623AA7E32009EE438 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0D45BF23AA7DEE009EE438 /* Quick.framework */; platformFilter = ios; };
 		2B0D45E923AA7E75009EE438 /* ActorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D45E823AA7E75009EE438 /* ActorTests.swift */; platformFilter = ios; };
+		2B98B26723AB8FC60010E7E1 /* CharacterMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B98B26623AB8FC60010E7E1 /* CharacterMapper.swift */; };
+		2B98B27D23ABE2B00010E7E1 /* OccupationRaw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B98B27C23ABE2B00010E7E1 /* OccupationRaw.swift */; };
 		2BF5BAC023A507910040ACA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF5BABF23A507910040ACA7 /* AppDelegate.swift */; };
 		2BF5BAC223A507910040ACA7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF5BAC123A507910040ACA7 /* SceneDelegate.swift */; };
 		2BF5BAC423A507910040ACA7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF5BAC323A507910040ACA7 /* ContentView.swift */; };
@@ -172,10 +170,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2B0D458A23AA7099009EE438 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
-		2B0D458C23AA70AC009EE438 /* Season.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Season.swift; sourceTree = "<group>"; };
-		2B0D458E23AA70CB009EE438 /* Show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
-		2B0D459023AA70DA009EE438 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
 		2B0D459223AA70F3009EE438 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		2B0D459423AA7103009EE438 /* Occupation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Occupation.swift; sourceTree = "<group>"; };
 		2B0D459623AA710E009EE438 /* Actor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
@@ -186,6 +180,8 @@
 		2B0D45CE23AA7DFD009EE438 /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = Vendor/Nimble/Nimble.xcodeproj; sourceTree = "<group>"; };
 		2B0D45E823AA7E75009EE438 /* ActorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorTests.swift; sourceTree = "<group>"; };
 		2B0D45EB23AA894D009EE438 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2B98B26623AB8FC60010E7E1 /* CharacterMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterMapper.swift; sourceTree = "<group>"; };
+		2B98B27C23ABE2B00010E7E1 /* OccupationRaw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OccupationRaw.swift; sourceTree = "<group>"; };
 		2BF5BABC23A507910040ACA7 /* BBFication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BBFication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BF5BABF23A507910040ACA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BF5BAC123A507910040ACA7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -238,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				2B0D459423AA7103009EE438 /* Occupation.swift */,
+				2B98B27C23ABE2B00010E7E1 /* OccupationRaw.swift */,
 			);
 			path = Occupation;
 			sourceTree = "<group>";
@@ -246,40 +243,9 @@
 			isa = PBXGroup;
 			children = (
 				2B0D459223AA70F3009EE438 /* Character.swift */,
+				2B98B26623AB8FC60010E7E1 /* CharacterMapper.swift */,
 			);
 			path = Character;
-			sourceTree = "<group>";
-		};
-		2B0D459B23AA750B009EE438 /* Appearance */ = {
-			isa = PBXGroup;
-			children = (
-				2B0D459023AA70DA009EE438 /* Appearance.swift */,
-			);
-			path = Appearance;
-			sourceTree = "<group>";
-		};
-		2B0D459C23AA7515009EE438 /* Show */ = {
-			isa = PBXGroup;
-			children = (
-				2B0D458E23AA70CB009EE438 /* Show.swift */,
-			);
-			path = Show;
-			sourceTree = "<group>";
-		};
-		2B0D459D23AA751C009EE438 /* Season */ = {
-			isa = PBXGroup;
-			children = (
-				2B0D458C23AA70AC009EE438 /* Season.swift */,
-			);
-			path = Season;
-			sourceTree = "<group>";
-		};
-		2B0D459E23AA7523009EE438 /* Episode */ = {
-			isa = PBXGroup;
-			children = (
-				2B0D458A23AA7099009EE438 /* Episode.swift */,
-			);
-			path = Episode;
 			sourceTree = "<group>";
 		};
 		2B0D45A523AA771A009EE438 /* JSONMapping */ = {
@@ -435,10 +401,6 @@
 		2BF5BAF123AA6B640040ACA7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2B0D459E23AA7523009EE438 /* Episode */,
-				2B0D459D23AA751C009EE438 /* Season */,
-				2B0D459C23AA7515009EE438 /* Show */,
-				2B0D459B23AA750B009EE438 /* Appearance */,
 				2B0D459A23AA7501009EE438 /* Character */,
 				2B0D459923AA74F6009EE438 /* Occupation */,
 				2B0D459823AA74EA009EE438 /* Actor */,
@@ -686,18 +648,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B98B27D23ABE2B00010E7E1 /* OccupationRaw.swift in Sources */,
 				2BF5BAC023A507910040ACA7 /* AppDelegate.swift in Sources */,
 				2BF5BAE923AA3B1E0040ACA7 /* DataManager.swift in Sources */,
 				2BF5BAE723AA383B0040ACA7 /* SessionProtocols.swift in Sources */,
-				2B0D458B23AA7099009EE438 /* Episode.swift in Sources */,
 				2B0D45A223AA75C2009EE438 /* Mapped.swift in Sources */,
-				2B0D459123AA70DA009EE438 /* Appearance.swift in Sources */,
 				2B0D45A023AA753A009EE438 /* ActorMapper.swift in Sources */,
 				2BF5BAEE23AA3BF10040ACA7 /* PersistenceManager.swift in Sources */,
 				2B0D459523AA7103009EE438 /* Occupation.swift in Sources */,
-				2B0D458D23AA70AC009EE438 /* Season.swift in Sources */,
+				2B98B26723AB8FC60010E7E1 /* CharacterMapper.swift in Sources */,
 				2B0D45A423AA76FB009EE438 /* JSONMappingProtocol.swift in Sources */,
-				2B0D458F23AA70CB009EE438 /* Show.swift in Sources */,
 				2BF5BAE323AA32570040ACA7 /* BBModel.xcdatamodeld in Sources */,
 				2B0D459323AA70F3009EE438 /* Character.swift in Sources */,
 				2BF5BAEC23AA3BC10040ACA7 /* Managed.swift in Sources */,

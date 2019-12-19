@@ -10,9 +10,7 @@ import UIKit
 import Foundation
 
 protocol DataControllerPrototcol {
-    func fetchLocations()
-    func fetchLocationData(for locationId: Int64)
-    func fetchAvatarData(for profileId: Int64, forImageView imgView: UIImageView) -> UIImage?
+    func fetch()
 }
 
 enum SessionType {
@@ -26,9 +24,7 @@ enum HttpMethods: String {
 }
 
 enum EndPoint: String {
-    case location
-    case locations
-    case avatar
+    case characters
 }
 
 /// The data manager is intended to be passed between view controllers as a data handler
@@ -48,11 +44,10 @@ enum EndPoint: String {
 class DataManager: NSObject, DataControllerPrototcol {
     let persistenceManager: PersistenceControllerProtocol
     let dataSession: URLSessionProtocol
-//    let locationsHandler: AnyMapper<Mapped<[LocationRaw]>>
-//    let localleHandler: AnyMapper<Mapped<LocalleRaw>>
+    let characterHander: AnyMapper<[CharacterRaw]>
 
     private let scheme: String = "https"
-    private let host: String = "s3-ap-southeast-2.amazonaws.com"
+    private let host: String = "breakingbadapi.com"
 
     /// - Returns: an instance of DataManager
     ///
@@ -60,22 +55,19 @@ class DataManager: NSObject, DataControllerPrototcol {
     ///     - storeManager: an object conforming to the PerssistenceController protocol that handles persisting data
     ///     - networkManager: an object conforming to the URLSessionProtocol that fetches data
     ///     - configuration: a enumeration defining the tyle of sessionPersistenceManager, in this case default
-    ///     - locationParser: a object conforming to the JSONMapper protocol passed as Type Erased object as we use associated types in the protocol
-    ///     - localleParser: a object conforming to the JSONMapper protocol passed as Type Erased object as we use associated types in the protocol
-    required init(storeManager: PersistenceControllerProtocol, urlSession: URLSessionProtocol, configuration: SessionType = .sharedSession, locationParser: AnyMapper<Mapped<[LocationRaw]>>, localleParser: AnyMapper<Mapped<LocalleRaw>>) {
+    ///     - parser: a object conforming to the JSONMapper protocol passed as Type Erased object as we use associated types in the protocol
+    required init(storeManager: PersistenceControllerProtocol, urlSession: URLSessionProtocol, configuration: SessionType = .sharedSession, parser: AnyMapper<Mapped<[CharacterRaw]>>) {
         persistenceManager = storeManager
         dataSession = urlSession
-//        locationsHandler = locationParser
-//        localleHandler = localleParser
     }
 
-    /// Fetches all locations stored in the remote DB really this method should throw
+    /// Fetches all JSON via the API really this method should throw
     /// and pass the error up the chain for both data fetch errors and parse/persist errors.
     /// Furthermore it should handle server codes other than straight success, namely 300, 400, 500 and the like
     /// however it doesn't, its naive and trusting **AKA** "I'm being lazy"
     /// - Returns: void
-    func fetchLocations()  {
-        guard let url = buildURL(forEndPoint: .locations, forResourceID: nil) else { return }
+    func fetch()  {
+        guard let url = buildURL(forEndPoint: .characters) else { return }
         guard let request = makeRequest(fromUrl: url) else { return }
         let task = dataSession.dataTask(with: request) { [weak self] (data, response, error) in
             guard let strongSelf = self else { return }
@@ -83,111 +75,43 @@ class DataManager: NSObject, DataControllerPrototcol {
                 guard let urlResponse = response as? HTTPURLResponse else { return }
                 if  200...299 ~= urlResponse.statusCode {
                     guard let rawdata = data else { return }
-                    strongSelf.locationsHandler.parse(rawValue: rawdata)
-                    guard let val = strongSelf.locationsHandler.mappedValue else { return }
+                    strongSelf.characterHander.parse(rawValue: rawdata)
+                    guard let val = strongSelf.characterHander.mappedValue else { return }
                     switch val {
                     case .MappingError:
                         //handle the parsing error
                         print ("mapping error \(val.associatedValue())")
                     case .Value:
-                        strongSelf.locationsHandler.persist(rawJson: val)
+                        strongSelf.characterHander.persist(rawJson: val)
                     }
                 }
             } else {
                 //handle the network error
+                //not implemented
             }
         }
         task.resume()
     }
 
-    /// Fetches specific localle data stored in the remote DB. Should really throw as above
-    /// however for the sake of brevity it doesn't
-    /// - Returns: void
-    ///
-    /// - parameters:
-    ///     - locationID: the id of the required localle obtained from the location object
-    func fetchLocationData(for locationId: Int64) {
-        guard let url = buildURL(forEndPoint: .location, forResourceID: locationId) else { return }
-        guard let request = makeRequest(fromUrl: url) else { return }
-        let task = dataSession.dataTask(with: request) { [weak self] (data, response, error) in
-            guard let strongSelf = self else { return }
-            if error == nil {
-                guard let urlResponse = response as? HTTPURLResponse else {return}
-                if  200...299 ~= urlResponse.statusCode {
-                    guard let rawdata = data else { return }
-                    strongSelf.localleHandler.parse(rawValue: rawdata)
-                    guard let val = strongSelf.localleHandler.mappedValue else { return }
-                    switch val {
-                    case .MappingError:
-                        //handle the parsing error
-                        print ("mapping error \(val.associatedValue())")
-                    case .Value:
-                        strongSelf.localleHandler.persist(rawJson: val)
-                    }
-                }
-            } else {
-                //handle the network error
-            }
-        }
-        task.resume()
-    }
 
-    func fetchAvatarData(for profileId: Int64, forImageView imgView: UIImageView) -> UIImage? {
-        var image: UIImage?
-        guard let url = buildURL(forEndPoint: .avatar, withType: ".jpg", forResourceID: profileId) else { return nil }
-        guard let request = makeRequest(fromUrl: url) else { return nil }
-        let task = dataSession.dataTask(with: request) { (data, response, error) in
-            if error == nil {
-                guard let urlResponse = response as? HTTPURLResponse else { return }
-                if  200...299 ~= urlResponse.statusCode {
-                    guard let rawdata = data else { return }
-                    guard let tmp = UIImage(data: rawdata) else { return }
-                    image = tmp
-                    DispatchQueue.main.async(execute: { () -> Void in
-                        imgView.image = tmp
-                    })
-                }
-            }
-        }
-        task.resume()
-        return image
-    }
-
-    private func buildURL(forEndPoint endPoint: EndPoint, withType resType: String = ".json", forResourceID resID: Int64?) -> URL? {
+    private func buildURL(forEndPoint endPoint: EndPoint) -> URL? {
         let urlComponents = NSURLComponents()
         urlComponents.scheme = scheme
         urlComponents.host = host
 
         switch endPoint {
-        case .location:
-                urlComponents.path = "/ios-code-test/v2/location/" + String(resID!) + resType
-        case .locations:
-                urlComponents.path = "/ios-code-test/v2/locations" + resType
-        case .avatar:
-                urlComponents.path = "/ios-code-test/v2/img/" + String(resID!) + resType
+        case .characters:
+                urlComponents.path = "/api/characters"
         }
 
         return urlComponents.url
     }
 
 
-    private func makeLocationsURL() -> URL? {
-        let urlComponents = NSURLComponents()
-        urlComponents.scheme = scheme;
-        urlComponents.host = host;
-        urlComponents.path = "/locations.json";
-
-        return urlComponents.url
-    }
-
     private func makeRequest(fromUrl url: URL, forMethod method: HttpMethods = HttpMethods.get) -> URLRequest? {
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = method.rawValue
         return request as URLRequest
-    }
-
-    private func makeLocationURL(forId id: Int64) -> URL? {
-        return nil
     }
 
 }
