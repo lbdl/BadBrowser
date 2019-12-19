@@ -8,6 +8,48 @@
 
 import Foundation
 
+class CharacterMapper: JSONMappingProtocol {
+
+    internal var decoder: JSONDecodingProtocol
+    internal var mappedValue: MappedValue?
+    internal var persistanceManager: PersistenceControllerProtocol
+
+    typealias MappedValue = Mapped<[CharacterRaw]>
+    typealias raw = Data
+
+    required init(storeManager: PersistenceControllerProtocol, decoder: JSONDecodingProtocol=JSONDecoder()) {
+        persistanceManager = storeManager
+        self.decoder = decoder
+    }
+
+
+    var rawValue: raw? {
+        didSet {
+            parse(rawValue: rawValue!)
+        }
+    }
+
+    internal func parse(rawValue: Data) {
+        do {
+            let tmp = try decoder.decode([CharacterRaw].self, from: rawValue)
+            mappedValue = .Value(tmp)
+        } catch let error {
+            let tmp = error as! DecodingError
+            mappedValue = .MappingError(tmp)
+        }
+    }
+
+    internal func persist(rawJson: MappedValue) {
+        if let obj = rawJson.associatedValue() as? [CharacterRaw] {
+            persistanceManager.updateContext(block: {
+                _ = obj.map({ [weak self] location in
+                    guard let strongSelf = self else { return }
+                    _ = Character.insert(into: strongSelf.persistanceManager, raw: location)
+                })
+            })
+        }
+    }
+}
 
 struct CharacterRaw: Decodable {
 
