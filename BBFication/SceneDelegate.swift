@@ -12,31 +12,34 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var dataManager: DataManager?
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
                 PersistenceHelper.createProductionContainer{ container in
 
-                    let contentView = ContentView()
+                    
                     let persistenceManager = PersistenceManager(store: container)
                     let sessionManager = URLSession(configuration: URLSessionConfiguration.default)
                     let characterManager = AnyMapper(CharacterMapper(storeManager: persistenceManager))
-                    self.dataManager = DataManager(storeManager: persistenceManager, urlSession: sessionManager, locationParser: locationManager, localleParser: localleManager)
-                    vc.dataManager = self.dataManager
-                    let nv = UINavigationController(rootViewController: vc)
-                    self.window?.rootViewController = nv
+                    self.dataManager = DataManager(storeManager: persistenceManager, urlSession: sessionManager, parser: characterManager)
+                    
+                    let vc = MainContentView()
+                    
+                    // Use a UIHostingController as window root view controller.
+                    if let windowScene = scene as? UIWindowScene {
+                        let window = UIWindow(windowScene: windowScene)
+                        window.rootViewController = UIHostingController(rootView: vc.environmentObject(self.dataManager!))
+                        self.window = window
+                        window.makeKeyAndVisible()
+                    }
+                                    
                 }
 
         // Create the SwiftUI view that provides the window contents.        let contentView = ContentView()
 
-        // Use a UIHostingController as window root view controller.
-        if let windowScene = scene as? UIWindowScene {
-            let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: contentView)
-            self.window = window
-            window.makeKeyAndVisible()
-        }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

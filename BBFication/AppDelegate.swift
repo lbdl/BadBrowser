@@ -16,22 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-//        PersistenceHelper.createProductionContainer{ container in
-            //let storyboard = (self.window?.rootViewController?.storyboard)!
-//            guard let vc = storyboard.instantiateViewController(withIdentifier: "LocationsViewController") as? LocationsViewController else {
-//                fatalError("Could not instantiate locations view controller")
-//            }
-//            let persistenceManager = PersistenceManager(store: container)
-//            let sessionManager = URLSession(configuration: URLSessionConfiguration.default)
-//            let locationManager = AnyMapper(LocationMapper(storeManager: persistenceManager))
-//            let localleManager = AnyMapper(LocalleMapper(storeManager: persistenceManager))
-//            self.dataManager = DataManager(storeManager: persistenceManager, urlSession: sessionManager, locationParser: locationManager, localleParser: localleManager)
-//            vc.dataManager = self.dataManager
-//            let nv = UINavigationController(rootViewController: vc)
-//            self.window?.rootViewController = nv
-//        }
-        
         return true
     }
 

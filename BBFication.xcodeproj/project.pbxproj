@@ -311,6 +311,13 @@
 			path = TestAssets;
 			sourceTree = "<group>";
 		};
+		2B26867123AC3E59004794DB /* Season */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Season;
+			sourceTree = "<group>";
+		};
 		2BF5BAB323A507910040ACA7 = {
 			isa = PBXGroup;
 			children = (
@@ -401,6 +408,7 @@
 		2BF5BAF123AA6B640040ACA7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2B26867123AC3E59004794DB /* Season */,
 				2B0D459A23AA7501009EE438 /* Character */,
 				2B0D459923AA74F6009EE438 /* Occupation */,
 				2B0D459823AA74EA009EE438 /* Actor */,

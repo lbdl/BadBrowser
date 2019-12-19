@@ -8,7 +8,8 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct MainContentView: View {
+    @EnvironmentObject var dataManager: DataManager
     var body: some View {
         Text("Hello, World!")
     }
@@ -16,6 +17,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        MainContentView()
     }
 }

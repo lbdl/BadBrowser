@@ -1,26 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Actor" representedClassName=".Actor" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="characters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="actor" inverseEntity="Character"/>
     </entity>
+    <entity name="BBSeason" representedClassName="BBSeason" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="characters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="bbSeasons" inverseEntity="Character"/>
+    </entity>
+    <entity name="BCSSeason" representedClassName="BCSSeason" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="number" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="characters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character"/>
+    </entity>
     <entity name="Character" representedClassName=".Character" syncable="YES">
-        <attribute name="bBseasons" attributeType="Transformable" customClassName="Array&lt;int&gt;"/>
-        <attribute name="bCSSeasons" attributeType="Transformable" customClassName="Array&lt;Int&gt;"/>
         <attribute name="birthday" optional="YES" attributeType="String"/>
         <attribute name="img_url" optional="YES" attributeType="URI"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="status" optional="YES" attributeType="String"/>
         <relationship name="actor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Actor" inverseName="characters" inverseEntity="Actor"/>
+        <relationship name="bbSeasons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BBSeason" inverseName="characters" inverseEntity="BBSeason"/>
+        <relationship name="bcsSeasons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BCSSeason"/>
         <relationship name="occupations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Occupation" inverseName="character" inverseEntity="Occupation"/>
     </entity>
     <entity name="Occupation" representedClassName=".Occupation" syncable="YES">
+        <attribute name="attribute" optional="YES"/>
+        <attribute name="attribute1" optional="YES"/>
+        <attribute name="attribute2" optional="YES"/>
+        <attribute name="attribute3" optional="YES"/>
+        <attribute name="attribute4" optional="YES"/>
+        <attribute name="attribute5" optional="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="character" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Character" inverseName="occupations" inverseEntity="Character"/>
     </entity>
     <elements>
-        <element name="Actor" positionX="-934.23828125" positionY="142.51171875" width="128" height="28"/>
-        <element name="Character" positionX="-911.625" positionY="-30.37890625" width="104.53125" height="163"/>
-        <element name="Occupation" positionX="-504.55859375" positionY="23.95703125" width="128" height="28"/>
+        <element name="Actor" positionX="-977.25" positionY="201.99609375" width="128" height="28"/>
+        <element name="Character" positionX="-958.421875" positionY="-56.56640625" width="104.53125" height="163"/>
+        <element name="Occupation" positionX="-504.55859375" positionY="23.95703125" width="128" height="163"/>
+        <element name="BBSeason" positionX="-511.3203125" positionY="-113.9453125" width="128" height="88"/>
+        <element name="BCSSeason" positionX="-733.9921875" positionY="-140.80078125" width="128" height="88"/>
     </elements>
 </model>

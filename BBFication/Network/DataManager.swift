@@ -41,10 +41,10 @@ enum EndPoint: String {
 ///
 /// Data fetched is stored in CoreData. The views should be updated via a fetched results controller.
 
-class DataManager: NSObject, DataControllerPrototcol {
+class DataManager: NSObject, DataControllerPrototcol, ObservableObject {
     let persistenceManager: PersistenceControllerProtocol
     let dataSession: URLSessionProtocol
-    let characterHander: AnyMapper<[CharacterRaw]>
+    let characterHandler: AnyMapper<Mapped<[CharacterRaw]>>
 
     private let scheme: String = "https"
     private let host: String = "breakingbadapi.com"
@@ -59,6 +59,7 @@ class DataManager: NSObject, DataControllerPrototcol {
     required init(storeManager: PersistenceControllerProtocol, urlSession: URLSessionProtocol, configuration: SessionType = .sharedSession, parser: AnyMapper<Mapped<[CharacterRaw]>>) {
         persistenceManager = storeManager
         dataSession = urlSession
+        characterHandler = parser
     }
 
     /// Fetches all JSON via the API really this method should throw
@@ -75,14 +76,14 @@ class DataManager: NSObject, DataControllerPrototcol {
                 guard let urlResponse = response as? HTTPURLResponse else { return }
                 if  200...299 ~= urlResponse.statusCode {
                     guard let rawdata = data else { return }
-                    strongSelf.characterHander.parse(rawValue: rawdata)
-                    guard let val = strongSelf.characterHander.mappedValue else { return }
+                    strongSelf.characterHandler.parse(rawValue: rawdata)
+                    guard let val = strongSelf.characterHandler.mappedValue else { return }
                     switch val {
                     case .MappingError:
                         //handle the parsing error
                         print ("mapping error \(val.associatedValue())")
                     case .Value:
-                        strongSelf.characterHander.persist(rawJson: val)
+                        strongSelf.characterHandler.persist(rawJson: val)
                     }
                 }
             } else {
