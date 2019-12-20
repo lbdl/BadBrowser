@@ -28,12 +28,13 @@ final class Character: NSManagedObject {
         let predicate = NSPredicate(format: "%K == %d", #keyPath(id), characterId)
         let character = fetchOrCreate(fromManager: manager, matching: predicate){
             //fresh baked so add simple fields
-            $0.birthday = raw.birthday
-            $0.status = raw.status
-            $0.img_url = raw.img_url
+            $0.birthday = raw.birthday != $0.birthday ? raw.birthday : $0.birthday
+            $0.status = raw.status != $0.status ? raw.status : $0.status
+            $0.img_url = raw.img_url != $0.img_url ? raw.img_url : $0.status
             $0.id = raw.id
             $0.actor = makeActor(raw: raw.actor, manager: manager)
             $0.occupations = Set(makeOccupations(raw: raw.occupations, manager: manager))
+            $0.appearences = Set(makeAppearances(raw: raw, manager: manager))
         }
         return character
     }
@@ -47,13 +48,29 @@ final class Character: NSManagedObject {
         //make a pred for occupations
         let objArray: [Occupation] = raw.map({ occupationRaw in
             let occupation = Occupation.insert(into: manager, raw: occupationRaw)
-            //let profile = Profile.fetchProfile(forID: profileRaw.id, fromManager: manager, withJSON: profileRaw)
             return occupation
         })
         return objArray
     }
 
-    
+    fileprivate static func makeAppearances(raw: CharacterRaw, manager: PersistenceControllerProtocol) -> [Appearance] {
+        var bbArr: [Appearance] = raw.BBSeasons.map({
+            let uid = manager.uid()
+            let app = Appearance.fetchAppearance(forID: uid, fromManager: manager , withData: AppearanceRaw(id: uid, show: "BreakingBad", season: $0))
+            return app
+        })
+
+        if !raw.BCSSeasons.isEmpty {
+            let bcsArr: [Appearance] = raw.BCSSeasons.map({
+                let uid = manager.uid()
+                let app = Appearance.fetchAppearance(forID: uid, fromManager: manager , withData: AppearanceRaw(id: uid, show: "BetterCallSaul", season: $0))
+                return app
+            })
+            bbArr.append(contentsOf: bcsArr)
+        }
+
+        return bbArr
+    }
 
 
 }

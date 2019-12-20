@@ -19,10 +19,10 @@ final class Occupation: NSManagedObject {
 
     static func fetchOccupation(forID occupationName: String, fromManager manager: PersistenceControllerProtocol) -> Occupation {
         let predicate = NSPredicate(format: "%K == %d", #keyPath(name), occupationName)
-        let actor = fetchOrCreate(fromManager: manager, matching: predicate) {
+        let occupation = fetchOrCreate(fromManager: manager, matching: predicate) {
             $0.name = occupationName
         }
-        return actor
+        return occupation
     }
 
 }
