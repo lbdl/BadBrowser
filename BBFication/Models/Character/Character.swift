@@ -16,9 +16,8 @@ final class Character: NSManagedObject {
     @NSManaged fileprivate(set) var nickname: String
     @NSManaged fileprivate(set) var img_url: String
     @NSManaged fileprivate(set) var actor: Actor
-    @NSManaged fileprivate(set) var bBSeasons: Array<Int>
-    @NSManaged fileprivate(set) var bCSSeasons: Array<Int>
     @NSManaged fileprivate(set) var occupations: Set<Occupation>
+    @NSManaged fileprivate(set) var appearences: Set<Appearance>
 
     static func insert(into manager: PersistenceControllerProtocol, raw: CharacterRaw) -> Character {
         let character: Character = Character.fetchCharacter(forID: raw.id, fromManager: manager, withData: raw)
@@ -35,8 +34,6 @@ final class Character: NSManagedObject {
             $0.id = raw.id
             $0.actor = makeActor(raw: raw.actor, manager: manager)
             $0.occupations = Set(makeOccupations(raw: raw.occupations, manager: manager))
-            $0.bBSeasons = raw.BBSeasons
-            $0.bCSSeasons = raw.BCSSeasons
         }
         return character
     }
@@ -47,6 +44,7 @@ final class Character: NSManagedObject {
     }
 
     fileprivate static func makeOccupations(raw: [OccupationRaw], manager: PersistenceControllerProtocol) -> [Occupation] {
+        //make a pred for occupations
         let objArray: [Occupation] = raw.map({ occupationRaw in
             let occupation = Occupation.insert(into: manager, raw: occupationRaw)
             //let profile = Profile.fetchProfile(forID: profileRaw.id, fromManager: manager, withJSON: profileRaw)
@@ -54,6 +52,7 @@ final class Character: NSManagedObject {
         })
         return objArray
     }
+
 
 }
 
