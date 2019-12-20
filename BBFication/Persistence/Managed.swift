@@ -64,4 +64,6 @@ extension Managed where Self: NSManagedObject {
         return try! manager.context.fetch(req)
     }
 
+
+
 }

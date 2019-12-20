@@ -53,6 +53,8 @@ final class Character: NSManagedObject {
         return objArray
     }
 
+    
+
 
 }
 

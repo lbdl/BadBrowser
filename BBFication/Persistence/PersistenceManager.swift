@@ -13,6 +13,7 @@ protocol PersistenceControllerProtocol {
     var context: ManagedContextProtocol {get}
     func updateContext(block: @escaping () -> ())
     func insertObject<A>() -> A where A: Managed
+    func uid() -> String
 }
 
 protocol ManagedContextProtocol {
@@ -57,5 +58,9 @@ class PersistenceManager: NSObject, PersistenceControllerProtocol {
             fatalError("Could not insert object")
         }
         return obj
+    }
+
+    public func uid() -> String {
+        return UUID().uuidString
     }
 }
