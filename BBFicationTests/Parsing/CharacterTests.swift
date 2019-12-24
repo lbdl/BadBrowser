@@ -3,30 +3,6 @@ import Nimble
 
 @testable import BBFication
 
-//MARK: - Custom Matchers for associated values in Mapped<A> object
-/// The generic test functions allow us to actually pass the Mapped<Types>
-/// into the Nimble matching library.
-//private func beItem<A>(test: @escaping (A) -> Void = { _ in }) -> Predicate<Mapped<A>> {
-//    return Predicate.define("be item") { expression, message in
-//        if let actual = try expression.evaluate(),
-//            case let .Value(A) = actual {
-//            test(A)
-//            return PredicateResult(status: .matches, message: message)
-//        }
-//        return PredicateResult(status: .fail, message: message)
-//    }
-//}
-//
-//private func beDecodingError<A>(test: @escaping (Error) -> Void = { _ in }) -> Predicate<Mapped<[A]>> {
-//    return Predicate.define("be decoding error") { expression, message in
-//        if let actual = try expression.evaluate(),
-//            case let .MappingError(Error) = actual {
-//            test(Error)
-//            return PredicateResult(status: .matches, message: message)
-//        }
-//        return PredicateResult(status: .fail, message: message)
-//    }
-//}
 
 class CharacterTests: QuickSpec {
     
@@ -56,9 +32,6 @@ class CharacterTests: QuickSpec {
                 it("THEN it creates a collection of Characters") {
                     waitUntil { done in
                         TestSuiteHelpers.createInMemoryContainer(completion: { (container) in
-                            persistentContainer = container
-                            manager = MockPersistenceManager(managedContext: persistentContainer!)
-                            sut = CharacterMapper(storeManager: manager!)
                             sut?.parse(rawValue: rawData!)
                             expect(sut?.mappedValue).to(H.beItem { characters in
                                 expect(characters).to(beAKindOf(Array<CharacterRaw>.self))
@@ -70,9 +43,6 @@ class CharacterTests: QuickSpec {
                 it("AND the collection contains 63 items") {
                     waitUntil { done in
                         TestSuiteHelpers.createInMemoryContainer(completion: { (container) in
-                            persistentContainer = container
-                            manager = MockPersistenceManager(managedContext: persistentContainer!)
-                            sut = CharacterMapper(storeManager: manager!)
                             sut?.parse(rawValue: rawData!)
                             expect(sut?.mappedValue).to(H.beItem { characters in
                                 expect(characters.count).to(equal(63))
@@ -84,9 +54,6 @@ class CharacterTests: QuickSpec {
                 it("AND the first character has the correct attributes") {
                     waitUntil { done in
                         TestSuiteHelpers.createInMemoryContainer(completion: { (container) in
-                            persistentContainer = container
-                            manager = MockPersistenceManager(managedContext: persistentContainer!)
-                            sut = CharacterMapper(storeManager: manager!)
                             sut?.parse(rawValue: rawData!)
                             expect(sut?.mappedValue).to(H.beItem { characters in
                                 let actual = characters.first!
@@ -97,6 +64,32 @@ class CharacterTests: QuickSpec {
                                 expect(actual.occupations.last!).to(equal("Meth King Pin"))
                                 //rest of attributes elided...
                             })
+                            done()
+                        })
+                    }
+                }
+            }
+        }
+        context("GIVEN a malformed JSON payload") {
+            
+            beforeEach {
+                rawData = TestSuiteHelpers.readLocalData(testCase: .badCharacter)
+                TestSuiteHelpers.createInMemoryContainer(completion: { (container) in
+                    persistentContainer = container
+                    manager = MockPersistenceManager(managedContext: persistentContainer!)
+                    sut = CharacterMapper(storeManager: manager!)
+                })
+            }
+            
+            afterSuite {
+                rawData = nil
+            }
+            describe("WHEN we parse a feed") {
+                it("throws an error") {
+                    waitUntil { done in
+                        TestSuiteHelpers.createInMemoryContainer(completion: { (container) in
+                            sut?.parse(rawValue: rawData!)
+                            expect(sut?.mappedValue).to(H.beDecodingError())
                             done()
                         })
                     }

@@ -15,6 +15,7 @@
 		2B0D45E523AA7E2C009EE438 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0D45DD23AA7DFE009EE438 /* Nimble.framework */; platformFilter = ios; };
 		2B0D45E623AA7E32009EE438 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B0D45BF23AA7DEE009EE438 /* Quick.framework */; platformFilter = ios; };
 		2B0D45E923AA7E75009EE438 /* CharacterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D45E823AA7E75009EE438 /* CharacterTests.swift */; platformFilter = ios; };
+		2B13FB1823B2615400865A3A /* badPayload.json in Resources */ = {isa = PBXBuildFile; fileRef = 2B13FB1723B2615400865A3A /* badPayload.json */; };
 		2B98B26723AB8FC60010E7E1 /* CharacterMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B98B26623AB8FC60010E7E1 /* CharacterMapper.swift */; };
 		2B98B29523ACD1FD0010E7E1 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B98B29423ACD1FD0010E7E1 /* Appearance.swift */; };
 		2B98B29723ACD2130010E7E1 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B98B29623ACD2130010E7E1 /* Episode.swift */; };
@@ -183,6 +184,7 @@
 		2B0D45CE23AA7DFD009EE438 /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = Vendor/Nimble/Nimble.xcodeproj; sourceTree = "<group>"; };
 		2B0D45E823AA7E75009EE438 /* CharacterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterTests.swift; sourceTree = "<group>"; };
 		2B0D45EB23AA894D009EE438 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2B13FB1723B2615400865A3A /* badPayload.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = badPayload.json; sourceTree = "<group>"; };
 		2B98B26623AB8FC60010E7E1 /* CharacterMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterMapper.swift; sourceTree = "<group>"; };
 		2B98B29423ACD1FD0010E7E1 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Appearance.swift; path = BBFication/Models/Occupation/Appearance.swift; sourceTree = SOURCE_ROOT; };
 		2B98B29623ACD2130010E7E1 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Episode.swift; path = BBFication/Models/Occupation/Episode.swift; sourceTree = SOURCE_ROOT; };
@@ -314,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				2B98B29C23AD3CE80010E7E1 /* fullPayload.json */,
+				2B13FB1723B2615400865A3A /* badPayload.json */,
 			);
 			path = TestAssets;
 			sourceTree = "<group>";
@@ -666,6 +669,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B13FB1823B2615400865A3A /* badPayload.json in Resources */,
 				2B98B29D23AD3CE80010E7E1 /* fullPayload.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -30,7 +30,7 @@ final class Helpers {
     }
 
     /// allows for passing Mapped<A> values into Nimble matchers
-    static func beDecodingError<A>(test: @escaping (Error) -> Void = { _ in }) -> Predicate<Mapped<[A]>> {
+    static func beDecodingError<A>(test: @escaping (Error) -> Void = { _ in }) -> Predicate<Mapped<A>> {
         return Predicate.define("be decoding error") { expression, message in
             if let actual = try expression.evaluate(),
                 case let .MappingError(Error) = actual {
@@ -110,11 +110,9 @@ class TestSuiteHelpers: NSObject {
         case .characters:
             url = testBundle.url(forResource: "fullPayload", withExtension: "json")
         case .character:
-            url = testBundle.url(forResource: "fullPayload", withExtension: "json")
+            url = testBundle.url(forResource: "partialPayload", withExtension: "json")
         case .badCharacter:
-            url = testBundle.url(forResource: "fullPayload", withExtension: "json")
-                default:
-            break
+            url = testBundle.url(forResource: "badPayload", withExtension: "json")
         }
         guard let data = NSData(contentsOf: url!) as Data? else {return nil}
         return data
