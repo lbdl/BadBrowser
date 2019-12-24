@@ -12,20 +12,21 @@ import CoreData
 final class Occupation: NSManagedObject {
     @NSManaged fileprivate(set) var name: String
 
-    static func insert(into manager: PersistenceControllerProtocol, raw: OccupationRaw) -> Occupation {
-        let occupation: Occupation = Occupation.fetchOccupation(forID: raw.name, fromManager: manager)
+    static func insert(into manager: PersistenceControllerProtocol, raw: String) -> Occupation {
+        let occupation: Occupation = Occupation.fetchOccupation(forID: raw, fromManager: manager)
         return occupation
     }
 
     static func fetchOccupation(forID occupationName: String, fromManager manager: PersistenceControllerProtocol) -> Occupation {
         let predicate = NSPredicate(format: "%K == %d", #keyPath(name), occupationName)
         let occupation = fetchOrCreate(fromManager: manager, matching: predicate) {
-            $0.name = occupationName
+            $0.name = $0.name != occupationName ? occupationName : $0.name
         }
         return occupation
     }
 
 }
+
 
 extension Occupation: Managed {
     static var defaultSortDescriptors: [NSSortDescriptor] {

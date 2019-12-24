@@ -39,12 +39,12 @@ final class Character: NSManagedObject {
         return character
     }
 
-    fileprivate static func makeActor(raw: ActorRaw, manager: PersistenceControllerProtocol) -> Actor {
+    fileprivate static func makeActor(raw: String, manager: PersistenceControllerProtocol) -> Actor {
         let actor = Actor.insert(into: manager, raw: raw)
         return actor
     }
 
-    fileprivate static func makeOccupations(raw: [OccupationRaw], manager: PersistenceControllerProtocol) -> [Occupation] {
+    fileprivate static func makeOccupations(raw: [String], manager: PersistenceControllerProtocol) -> [Occupation] {
         //make a pred for occupations
         let objArray: [Occupation] = raw.map({ occupationRaw in
             let occupation = Occupation.insert(into: manager, raw: occupationRaw)
@@ -60,15 +60,12 @@ final class Character: NSManagedObject {
             return app
         })
 
-        if !raw.BCSSeasons.isEmpty {
-            let bcsArr: [Appearance] = raw.BCSSeasons.map({
-                let uid = manager.uid()
-                let app = Appearance.fetchAppearance(forID: uid, fromManager: manager , withData: AppearanceRaw(id: uid, show: "BetterCallSaul", season: $0))
-                return app
-            })
-            bbArr.append(contentsOf: bcsArr)
-        }
-
+        let bcsArr: [Appearance] = raw.BCSSeasons.map({
+            let uid = manager.uid()
+            let app = Appearance.fetchAppearance(forID: uid, fromManager: manager , withData: AppearanceRaw(id: uid, show: "BetterCallSaul", season: $0))
+            return app
+        })
+        bbArr.append(contentsOf: bcsArr)
         return bbArr
     }
 

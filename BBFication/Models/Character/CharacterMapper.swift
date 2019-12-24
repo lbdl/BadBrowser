@@ -72,10 +72,10 @@ struct CharacterRaw: Decodable {
         name = try! container.decode(String.self, forKey: .name)
         birthday = try! container.decode(String.self, forKey: .birthday)
         img_url = try! container.decode(String.self, forKey: .img_url)
-        occupations = try! container.decode([OccupationRaw].self, forKey: .occupationStrings)
+        occupations = try! container.decode([String].self, forKey: .occupationStrings)
         BCSSeasons = try! container.decode([Int].self, forKey: .BCSSeasons)
         BBSeasons = try! container.decode([Int].self, forKey: .BBSeasons)
-        actor = try! container.decode(ActorRaw.self, forKey: .actorName)
+        actor = try! container.decode(String.self, forKey: .actorName)
         status = try! container.decode(String.self, forKey: .status)
     }
 
@@ -84,8 +84,8 @@ struct CharacterRaw: Decodable {
     let birthday: String
     let status: String
     let img_url: String
-    let occupations: [OccupationRaw]
+    let occupations: [String]
     let BCSSeasons: [Int]
     let BBSeasons: [Int]
-    let actor: ActorRaw
+    let actor: String
 }

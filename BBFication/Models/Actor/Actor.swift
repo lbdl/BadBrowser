@@ -13,15 +13,15 @@ final class Actor: NSManagedObject {
     @NSManaged fileprivate(set) var name: String
     @NSManaged fileprivate(set) var characters: Character
 
-    static func insert(into manager: PersistenceControllerProtocol, raw: ActorRaw) -> Actor {
-        let actor: Actor = Actor.fetchActor(forID: raw.name, fromManager: manager)
+    static func insert(into manager: PersistenceControllerProtocol, raw: String) -> Actor {
+        let actor: Actor = Actor.fetchActor(forID: raw, fromManager: manager)
         return actor
     }
 
     static func fetchActor(forID actorName: String, fromManager manager: PersistenceControllerProtocol) -> Actor {
         let predicate = NSPredicate(format: "%K == %d", #keyPath(name), actorName)
         let actor = fetchOrCreate(fromManager: manager, matching: predicate) {
-            $0.name = actorName
+            $0.name = $0.name != actorName ? actorName : $0.name
         }
         return actor
     }

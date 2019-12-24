@@ -8,13 +8,49 @@
 
 import UIKit
 import CoreData
+import Quick
+import Nimble
 @testable import BBFication
+
+
+//MARK: - Custom Matchers for associated values in Mapped<A> object
+/// The generic test functions allow us to actually pass the Mapped<Types>
+/// into the Nimble matching library.
+final class Helpers {
+    /// allows for passing Mapped<A> values into Nimble matchers
+    static func beItem<A>(test: @escaping (A) -> Void = { _ in }) -> Predicate<Mapped<A>> {
+        return Predicate.define("be item") { expression, message in
+            if let actual = try expression.evaluate(),
+                case let .Value(A) = actual {
+                test(A)
+                return PredicateResult(status: .matches, message: message)
+            }
+            return PredicateResult(status: .fail, message: message)
+        }
+    }
+
+    /// allows for passing Mapped<A> values into Nimble matchers
+    static func beDecodingError<A>(test: @escaping (Error) -> Void = { _ in }) -> Predicate<Mapped<[A]>> {
+        return Predicate.define("be decoding error") { expression, message in
+            if let actual = try expression.evaluate(),
+                case let .MappingError(Error) = actual {
+                test(Error)
+                return PredicateResult(status: .matches, message: message)
+            }
+            return PredicateResult(status: .fail, message: message)
+        }
+    }
+}
 
 class MockManagedObject: NSManagedObject {
     static var entityName = "MockManagedObject"
 }
 
 class MockPersistenceManager: PersistenceControllerProtocol {
+    func uid() -> String {
+        return UUID().uuidString
+    }
+    
     let context: ManagedContextProtocol
     var didCallInsert: Bool?
 
@@ -72,11 +108,11 @@ class TestSuiteHelpers: NSObject {
 
         switch testCase {
         case .characters:
-            url = testBundle.url(forResource: "badLocations", withExtension: "json")
+            url = testBundle.url(forResource: "fullPayload", withExtension: "json")
         case .character:
-            url = testBundle.url(forResource: "badProfiles", withExtension: "json")
+            url = testBundle.url(forResource: "fullPayload", withExtension: "json")
         case .badCharacter:
-            url = testBundle.url(forResource: "locations", withExtension: "json")
+            url = testBundle.url(forResource: "fullPayload", withExtension: "json")
                 default:
             break
         }
