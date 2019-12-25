@@ -95,6 +95,18 @@ class CharacterPersistanceTests: QuickSpec {
                         done()
                     }
                 }
+                it("creates the Bryan Cranston Character correctly"){
+                    waitUntil { done in
+                        sut?.parse(rawValue: rawData!)
+                        sut?.persist(rawJson: (sut?.mappedValue)!)
+                        characterRequest?.predicate = NSPredicate(format: "%K == %d",#keyPath(Character.id), 1)
+                        let res = try! persistentContainer?.fetch(characterRequest!)
+                        let actual = res?.first
+                        expect(actual!.actor.name).to(equal("Bryan Cranston"))
+                        expect(actual!.occupations.count).to(equal(2))
+                        done()
+                    }
+                }
             }
         }
         
