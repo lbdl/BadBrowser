@@ -38,6 +38,7 @@ extension Appearance: Managed {
         return [NSSortDescriptor(key: #keyPath(id), ascending: true)]
     }
 
+    static var entityName = "Appearance"
 
 }
 

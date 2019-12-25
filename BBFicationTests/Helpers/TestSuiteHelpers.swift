@@ -68,7 +68,14 @@ class MockPersistenceManager: PersistenceControllerProtocol {
     }
 }
 
+
+
+
 class MockManagedContext: ManagedContextProtocol {
+    func execute(_ request: NSPersistentStoreRequest) throws -> NSPersistentStoreResult {
+        return NSObject() as! NSPersistentStoreResult
+    }
+    
     var registeredObjects: Set<NSManagedObject>
 
     func fetch<T>(_ request: NSFetchRequest<T>) throws -> [T] {
@@ -86,6 +93,7 @@ class MockManagedContext: ManagedContextProtocol {
     func rollback() {
         //
     }
+    
 
     init() {
         registeredObjects = Set([MockManagedObject()])
@@ -137,4 +145,6 @@ class TestSuiteHelpers: NSObject {
             completion(container.viewContext)
         }
     }
+    
+
 }

@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Actor" representedClassName=".Actor" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="characters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="actor" inverseEntity="Character"/>
     </entity>
     <entity name="Appearance" representedClassName=".Appearance" syncable="YES">
         <attribute name="id" optional="YES" attributeType="String"/>
-        <relationship name="character" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Character" inverseName="apearances" inverseEntity="Character"/>
+        <relationship name="character" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Character" inverseName="appearances" inverseEntity="Character"/>
         <relationship name="episode" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Episode" inverseName="appearances" inverseEntity="Episode"/>
     </entity>
     <entity name="Character" representedClassName=".Character" syncable="YES">
         <attribute name="birthday" optional="YES" attributeType="String"/>
-        <attribute name="img_url" optional="YES" attributeType="URI"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="img_url" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="status" optional="YES" attributeType="String"/>
         <relationship name="actor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Actor" inverseName="characters" inverseEntity="Actor"/>
-        <relationship name="apearances" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Appearance" inverseName="character" inverseEntity="Appearance"/>
+        <relationship name="appearances" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Appearance" inverseName="character" inverseEntity="Appearance"/>
         <relationship name="occupations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Occupation" inverseName="character" inverseEntity="Occupation"/>
     </entity>
     <entity name="Episode" representedClassName=".Episode" syncable="YES">
@@ -28,7 +29,7 @@
         <relationship name="character" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Character" inverseName="occupations" inverseEntity="Character"/>
     </entity>
     <entity name="Season" representedClassName=".Season" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="episodes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Episode" inverseName="season" inverseEntity="Episode"/>
         <relationship name="show" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Show" inverseName="seasons" inverseEntity="Show"/>
     </entity>
@@ -38,11 +39,11 @@
     </entity>
     <elements>
         <element name="Actor" positionX="-977.25" positionY="201.99609375" width="128" height="28"/>
-        <element name="Character" positionX="-958.421875" positionY="-56.56640625" width="104.53125" height="148"/>
-        <element name="Occupation" positionX="-504.55859375" positionY="23.95703125" width="128" height="73"/>
-        <element name="Episode" positionX="-783" positionY="9" width="128" height="88"/>
-        <element name="Show" positionX="-774" positionY="18" width="128" height="73"/>
-        <element name="Season" positionX="-765" positionY="27" width="128" height="88"/>
         <element name="Appearance" positionX="-747" positionY="90" width="128" height="88"/>
+        <element name="Character" positionX="-958.421875" positionY="-56.56640625" width="104.53125" height="163"/>
+        <element name="Episode" positionX="-783" positionY="9" width="128" height="88"/>
+        <element name="Occupation" positionX="-504.55859375" positionY="23.95703125" width="128" height="73"/>
+        <element name="Season" positionX="-765" positionY="27" width="128" height="88"/>
+        <element name="Show" positionX="-774" positionY="18" width="128" height="73"/>
     </elements>
 </model>

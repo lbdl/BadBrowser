@@ -40,6 +40,8 @@ extension Episode: Managed {
     static var defaultSortDescriptors: [NSSortDescriptor] {
         return [NSSortDescriptor(key: #keyPath(id), ascending: true)]
     }
+    
+    static var entityName = "Episode"
 }
 
 

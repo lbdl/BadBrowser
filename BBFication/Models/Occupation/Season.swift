@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 final class Season: NSManagedObject {
-    @NSManaged fileprivate(set) var name: Int
+    @NSManaged fileprivate(set) var name: Int32
     @NSManaged fileprivate(set) var episodes: Set<Episode>
     @NSManaged fileprivate(set) var show: Show
 
@@ -22,7 +22,7 @@ final class Season: NSManagedObject {
     static func fetchSeason(forID seasonID: Int, fromManager manager: PersistenceControllerProtocol, withJSON raw: SeasonRaw) -> Season {
         let predicate = NSPredicate(format: "%K == %d", #keyPath(name), seasonID)
         let season = fetchOrCreate(fromManager: manager, matching: predicate) {
-            $0.name = $0.name != raw.name ? raw.name : $0.name
+            $0.name = $0.name != raw.name ? Int32(raw.name) : $0.name
             $0.show = Show.fetchShow(forID: raw.show, fromManager: manager, withJSON: ShowRaw(name: raw.show))
         }
         return season
@@ -39,7 +39,7 @@ extension Season: Managed {
     // nor always load the models. This only happens
     // when running the entoire test suite, individual sets of
     // tests run fine. Sigh...
-    static var entityName = "Show"
+    static var entityName = "Season"
 }
 
 struct SeasonRaw {

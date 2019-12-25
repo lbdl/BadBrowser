@@ -22,6 +22,7 @@ protocol ManagedContextProtocol {
     func save() throws
     func delete(_ object: NSManagedObject)
     func rollback()
+    func execute(_ request: NSPersistentStoreRequest) throws -> NSPersistentStoreResult
 }
 
 extension NSManagedObjectContext: ManagedContextProtocol {}
