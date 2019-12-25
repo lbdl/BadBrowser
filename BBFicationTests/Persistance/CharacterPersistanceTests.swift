@@ -74,19 +74,25 @@ class CharacterPersistanceTests: QuickSpec {
                 persistentContainer = container
                 manager = PersistenceManager(store: persistentContainer!)
                 sut = CharacterMapper(storeManager: manager!)
+                sut?.parse(rawValue: rawData!)
+                sut?.persist(rawJson: (sut?.mappedValue)!)
             })
+        }
+        
+        beforeEach {
+            sut?.parse(rawValue: rawData!)
+            sut?.persist(rawJson: (sut?.mappedValue)!)
         }
         
         afterEach {
             flush()
         }
-        
+
         context("GIVEN valid JSON") {
+            
             describe("WHEN the persist methods have been called") {
                 it("Creates Character Objects in the store") {
                     waitUntil { done in
-                        sut?.parse(rawValue: rawData!)
-                        sut?.persist(rawJson: (sut?.mappedValue)!)
                         let chars = try! persistentContainer?.fetch(characterRequest!)
                         let actual = chars?.first
                         expect(actual).to(beAKindOf(Character.self))
@@ -95,8 +101,6 @@ class CharacterPersistanceTests: QuickSpec {
                 }
                 it("creates the Bryan Cranston Character correctly"){
                     waitUntil { done in
-                        sut?.parse(rawValue: rawData!)
-                        sut?.persist(rawJson: (sut?.mappedValue)!)
                         characterRequest?.predicate = NSPredicate(format: "%K == %d",#keyPath(Character.id), 1)
                         let res = try! persistentContainer?.fetch(characterRequest!)
                         let actual = res?.first
@@ -107,8 +111,6 @@ class CharacterPersistanceTests: QuickSpec {
                 }
                 it("Walter White has the correct Actor") {
                     waitUntil { done in
-                        sut?.parse(rawValue: rawData!)
-                        sut?.persist(rawJson: (sut?.mappedValue)!)
                         let expectedName = "Bryan Cranston"
                         characterRequest?.predicate = NSPredicate(format: "%K == %d", #keyPath(Character.id), 1)
                         let res = try! persistentContainer?.fetch(characterRequest!)
@@ -117,8 +119,41 @@ class CharacterPersistanceTests: QuickSpec {
                         actorReq.predicate = NSPredicate(format: "%K == %@", #keyPath(Actor.name), expectedName)
                         let aRes = try! persistentContainer?.fetch(actorReq)
                         let actor = aRes?.first!
-                        expect(actor).to(beAKindOf(Actor.self))
+                        expect(actor).to(equal(character?.actor))
+                        expect(actor?.name).to(equal("Bryan Cranston"))
                         done()
+                    }
+                }
+                it("Walter White appears in all the shows seasons") {
+                    waitUntil{ done in
+                        characterRequest?.predicate = NSPredicate(format: "%K == %d", #keyPath(Character.id), 1)
+                        let res = try! persistentContainer?.fetch(characterRequest!)
+                        let character = res?.first!
+                        _ = character?.appearances.map{
+                            switch $0.episode.season.name {
+                            case 1:
+                                expect($0.episode.season.show.name).to(equal("BreakingBad"))
+                            case 2:
+                                expect($0.episode.season.show.name).to(equal("BreakingBad"))
+                            case 3:
+                                expect($0.episode.season.show.name).to(equal("BreakingBad"))
+                            case 4:
+                                expect($0.episode.season.show.name).to(equal("BreakingBad"))
+                            case 5:
+                                expect($0.episode.season.show.name).to(equal("BreakingBad"))
+                            default:
+                                fail()
+                            }
+                        }
+                        done()
+                    }
+                }
+                it("Mike Ermantraut appears in both BB seasons(2,3,4,5) and BCS seasons(1,2,3,4)") {
+                    waitUntil{ done in
+                        characterRequest?.predicate = NSPredicate(format: "%K == %@", #keyPath(Character.name), "Mike Ehrmantraut")
+                        let res = try! persistentContainer?.fetch(characterRequest!)
+                        let character = res?.first!
+                        
                     }
                 }
             }

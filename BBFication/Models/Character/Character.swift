@@ -13,7 +13,7 @@ final class Character: NSManagedObject {
     @NSManaged fileprivate(set) var id: Int32
     @NSManaged fileprivate(set) var birthday: String
     @NSManaged fileprivate(set) var status: String
-    @NSManaged fileprivate(set) var nickname: String
+    @NSManaged fileprivate(set) var name: String
     @NSManaged fileprivate(set) var img_url: String
     @NSManaged fileprivate(set) var actor: Actor
     @NSManaged fileprivate(set) var occupations: Set<Occupation>
@@ -30,6 +30,7 @@ final class Character: NSManagedObject {
             //fresh baked so add simple fields
             $0.birthday = raw.birthday != $0.birthday ? raw.birthday : $0.birthday
             $0.status = raw.status != $0.status ? raw.status : $0.status
+            $0.name = raw.name != $0.name ? raw.name : $0.name
             $0.img_url = raw.img_url != $0.img_url ? raw.img_url : $0.status
             $0.id = raw.id != $0.id ? Int32(raw.id) : $0.id
             $0.actor = makeActor(raw: raw.actor, manager: manager)
