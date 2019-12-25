@@ -67,7 +67,7 @@ class CharacterPersistanceTests: QuickSpec {
             }
         }
         
-        beforeEach {
+        beforeSuite {
             characterRequest = NSFetchRequest<Character>(entityName: Character.entityName)
             rawData = T.readLocalData(testCase: .characters)
             T.createInMemoryContainer(completion: { (container) in
@@ -77,13 +77,11 @@ class CharacterPersistanceTests: QuickSpec {
             })
         }
         
-
         afterEach {
             flush()
         }
         
         context("GIVEN valid JSON") {
-            
             describe("WHEN the persist methods have been called") {
                 it("Creates Character Objects in the store") {
                     waitUntil { done in
@@ -102,8 +100,24 @@ class CharacterPersistanceTests: QuickSpec {
                         characterRequest?.predicate = NSPredicate(format: "%K == %d",#keyPath(Character.id), 1)
                         let res = try! persistentContainer?.fetch(characterRequest!)
                         let actual = res?.first
-                        expect(actual!.actor.name).to(equal("Bryan Cranston"))
                         expect(actual!.occupations.count).to(equal(2))
+                        expect(actual!.appearances.count).to(equal(5))
+                        done()
+                    }
+                }
+                it("Walter White has the correct Actor") {
+                    waitUntil { done in
+                        sut?.parse(rawValue: rawData!)
+                        sut?.persist(rawJson: (sut?.mappedValue)!)
+                        let expectedName = "Bryan Cranston"
+                        characterRequest?.predicate = NSPredicate(format: "%K == %d", #keyPath(Character.id), 1)
+                        let res = try! persistentContainer?.fetch(characterRequest!)
+                        let character = res?.first!
+                        let actorReq = NSFetchRequest<Actor>(entityName: Actor.entityName)
+                        actorReq.predicate = NSPredicate(format: "%K == %@", #keyPath(Actor.name), expectedName)
+                        let aRes = try! persistentContainer?.fetch(actorReq)
+                        let actor = aRes?.first!
+                        expect(actor).to(beAKindOf(Actor.self))
                         done()
                     }
                 }
