@@ -20,7 +20,7 @@ final class Season: NSManagedObject {
     }
 
     static func fetchSeason(forID seasonID: Int, fromManager manager: PersistenceControllerProtocol, withJSON raw: SeasonRaw) -> Season {
-        let predicate = NSPredicate(format: "%K == %d", #keyPath(name), seasonID)
+        let predicate = NSPredicate(format: "%K == %d AND %K == %@", #keyPath(name), seasonID, #keyPath(show.name), raw.show)
         let season = fetchOrCreate(fromManager: manager, matching: predicate) {
             $0.name = $0.name != raw.name ? Int32(raw.name) : $0.name
             $0.show = Show.fetchShow(forID: raw.show, fromManager: manager, withJSON: ShowRaw(name: raw.show))

@@ -132,15 +132,15 @@ class CharacterPersistanceTests: QuickSpec {
                         _ = character?.appearances.map{
                             switch $0.episode.season.name {
                             case 1:
-                                expect($0.episode.season.show.name).to(equal("BreakingBad"))
+                                expect($0.episode.season.show.name).to(equal("Breaking Bad"))
                             case 2:
-                                expect($0.episode.season.show.name).to(equal("BreakingBad"))
+                                expect($0.episode.season.show.name).to(equal("Breaking Bad"))
                             case 3:
-                                expect($0.episode.season.show.name).to(equal("BreakingBad"))
+                                expect($0.episode.season.show.name).to(equal("Breaking Bad"))
                             case 4:
-                                expect($0.episode.season.show.name).to(equal("BreakingBad"))
+                                expect($0.episode.season.show.name).to(equal("Breaking Bad"))
                             case 5:
-                                expect($0.episode.season.show.name).to(equal("BreakingBad"))
+                                expect($0.episode.season.show.name).to(equal("Breaking Bad"))
                             default:
                                 fail()
                             }
@@ -149,15 +149,65 @@ class CharacterPersistanceTests: QuickSpec {
                     }
                 }
                 it("Mike Ermantraut appears in both BB seasons(2,3,4,5) and BCS seasons(1,2,3,4)") {
-                    waitUntil{ done in
+                    waitUntil { done in
                         characterRequest?.predicate = NSPredicate(format: "%K == %@", #keyPath(Character.name), "Mike Ehrmantraut")
                         let res = try! persistentContainer?.fetch(characterRequest!)
-                        let character = res?.first!
                         
+                        let character = res?.first!
+                        expect(character?.appearances.count).to(equal(8))
+                        
+                        let showReq = NSFetchRequest<Show>(entityName: Show.entityName)
+                        showReq.predicate = NSPredicate(format: "%K == %@", #keyPath(name), "Breaking Bad")
+                        let bbRes = try! persistentContainer?.fetch(showReq)
+                        let bb = bbRes?.first!
+                        
+                        showReq.predicate = NSPredicate(format: "%K == %@", #keyPath(name), "Better Call Saul")
+                        let bcsRes = try! persistentContainer?.fetch(showReq)
+                        let bcs = bcsRes?.first!
+                        
+                        for app in character!.appearances {
+                            switch app.episode.season.show.name {
+                            case "Breaking Bad":
+                                switch app.episode.season.name {
+                                case 1:
+                                    fail("Mike isn't in BB season 1")
+                                case 2:
+                                    expect(app.episode.season.show.name).to(equal(bb?.name))
+                                case 3:
+                                    expect(app.episode.season.show.name).to(equal(bb?.name))
+                                case 4:
+                                    expect(app.episode.season.show.name).to(equal(bb?.name))
+                                case 5:
+                                    expect(app.episode.season.show.name).to(equal(bb?.name))
+                                default:
+                                    fail()
+                                }
+                            case "Better Call Saul":
+                                switch app.episode.season.name {
+                                case 1:
+                                    expect(app.episode.season.show.name).to(equal(bcs?.name))
+                                case 2:
+                                    expect(app.episode.season.show.name).to(equal(bcs?.name))
+                                case 3:
+                                    expect(app.episode.season.show.name).to(equal(bcs?.name))
+                                case 4:
+                                    expect(app.episode.season.show.name).to(equal(bcs?.name))
+                                case 5:
+                                    fail("Mike isnt in BCS season 5")
+                                default:
+                                    fail()
+                                }
+                            default:
+                                  fail()
+                            }
+                        }
+                        done()
+                        }
+                        }
                     }
                 }
             }
         }
         
-    }
-}
+    
+

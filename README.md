@@ -16,6 +16,8 @@ The data model is a bit sucky as really the appearences might be better modeled 
 
 The `DataManager` class should be made generic over type as essentially its going to be the same for all objects
 
+The `Managed` interface and implementer has not been updated to the (slightly) shorter and newer syntax of CoreData since iOS10
+
 Datatypes get handled by creeating a `TypeRaw` struct that handles the JSON decoding and then this is persisted to a backing store.
 
 The mapping of JSON data to objects is handled in a Types given Mapper i.e. `<TYPE>` has another file `<TYPEMAPPER>` that is reponsible for... mapping acheieved using the DECODABLE protocol and a class that then handles feeding the data into the backing store.

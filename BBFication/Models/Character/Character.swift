@@ -55,19 +55,19 @@ final class Character: NSManagedObject {
     }
 
     fileprivate static func makeAppearances(raw: CharacterRaw, manager: PersistenceControllerProtocol) -> [Appearance] {
-        var bbArr: [Appearance] = raw.BBSeasons.map({
+        var appearancesArr = [Appearance]()
+        _ = raw.BBSeasons.map({
             let uid = manager.uid()
-            let app = Appearance.fetchAppearance(forID: uid, fromManager: manager , withData: AppearanceRaw(id: uid, show: "BreakingBad", season: $0))
-            return app
+            let app = Appearance.fetchAppearance(forID: uid, fromManager: manager , withData: AppearanceRaw(id: uid, show: "Breaking Bad", season: $0))
+            appearancesArr.append(app)
         })
-
-        let bcsArr: [Appearance] = raw.BCSSeasons.map({
+    
+        _ = raw.BCSSeasons.map({
             let uid = manager.uid()
-            let app = Appearance.fetchAppearance(forID: uid, fromManager: manager , withData: AppearanceRaw(id: uid, show: "BetterCallSaul", season: $0))
-            return app
+            let app = Appearance.fetchAppearance(forID: uid, fromManager: manager , withData: AppearanceRaw(id: uid, show: "Better Call Saul", season: $0))
+            appearancesArr.append(app)
         })
-        bbArr.append(contentsOf: bcsArr)
-        return bbArr
+        return appearancesArr
     }
 
 
