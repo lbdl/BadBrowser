@@ -81,7 +81,22 @@ extension Character: Managed {
     // overidden to stop odd test failures using in memory store DB
     // which doesn't seem to tidy itself up properly
     // nor always load the models. This only happens
-    // when running the entoire test suite, individual sets of
+    // when running the entire test suite, individual sets of
     // tests run fine. Sigh...
     static var entityName = "Character"
+}
+
+extension Character: AppearsIn {
+    func appearsIn(series: Int) -> Bool {
+        let appearances = getAppearances(name: series, seriesName: "Breaking Bad")
+        return appearances.count > 0 ? true : false
+    }
+
+     private func getAppearances(name: Int, seriesName series: String) -> Set<Appearance> {
+        let resSet = appearances.filter { app in
+            return app.episode.season.name == name && app.episode.season.show.name == series
+        }
+        return resSet
+    }
+
 }
