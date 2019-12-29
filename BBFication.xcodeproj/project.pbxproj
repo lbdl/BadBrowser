@@ -423,6 +423,7 @@
 		2B98B2C223B7AAD60010E7E1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2BF5BAC323A507910040ACA7 /* ContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -481,7 +482,6 @@
 				2BF5BAE523AA38050040ACA7 /* Network */,
 				2BF5BABF23A507910040ACA7 /* AppDelegate.swift */,
 				2BF5BAC123A507910040ACA7 /* SceneDelegate.swift */,
-				2BF5BAC323A507910040ACA7 /* ContentView.swift */,
 				2BF5BAE423AA32630040ACA7 /* Data */,
 				2BF5BAC523A507930040ACA7 /* Assets.xcassets */,
 				2BF5BACA23A507930040ACA7 /* LaunchScreen.storyboard */,

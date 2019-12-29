@@ -14,6 +14,7 @@ protocol SeasonFilter {
 
 final class CharacterViewModel: ListViewModel<Character> {
     var seasonFilter: Int?
+    let availableSeasons:[Int] = [0,1,2,3,4,5]
 }
 
 extension CharacterViewModel: SeasonFilter {

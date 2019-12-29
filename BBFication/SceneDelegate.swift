@@ -23,14 +23,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     let persistenceManager = PersistenceManager(store: container)
                     let sessionManager = URLSession(configuration: URLSessionConfiguration.default)
                     let characterManager = AnyMapper(CharacterMapper(storeManager: persistenceManager))
+                    let characterListViewModel = CharacterViewModel(ctx: container)
                     self.dataManager = DataManager(storeManager: persistenceManager, urlSession: sessionManager, parser: characterManager)
-                    
+                    self.dataManager?.fetch()
                     let vc = MainContentView()
                     
                     // Use a UIHostingController as window root view controller.
                     if let windowScene = scene as? UIWindowScene {
                         let window = UIWindow(windowScene: windowScene)
-                        window.rootViewController = UIHostingController(rootView: vc.environmentObject(self.dataManager!))
+                        window.rootViewController = UIHostingController(rootView: vc.environmentObject(characterListViewModel))
                         self.window = window
                         window.makeKeyAndVisible()
                     }

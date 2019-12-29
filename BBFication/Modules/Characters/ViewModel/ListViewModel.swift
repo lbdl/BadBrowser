@@ -26,7 +26,7 @@ class ListViewModel<R: Managed>: NSObject, NSFetchedResultsControllerDelegate, O
         try? controller.performFetch()
     }
     
-    var fetchedObjects: [R] {
+     var fetchedObjects: [R] {
         guard let obj = _objects else {
             _objects = self.controller.fetchedObjects ?? []
             return _objects!
@@ -35,6 +35,8 @@ class ListViewModel<R: Managed>: NSObject, NSFetchedResultsControllerDelegate, O
     }
 
     // MARK: NSFetchedResultsControllerDelegate
+    // when we receive an update from the controller we
+    // pass through using the Publisher
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         _objects = self.controller.fetchedObjects ?? []
         objectWillChange.send()
