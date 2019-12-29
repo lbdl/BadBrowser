@@ -10,10 +10,10 @@ class CharacterViewModelTests: QuickSpec {
     override func spec() {
 
         var rawData: Data?
-        var sut: CharacterMapper?
+        var mapper: CharacterMapper?
         var manager: PersistenceControllerProtocol?
         var persistentContainer: ManagedContextProtocol?
-        var characterRequest: NSFetchRequest<Character>?
+        var sut: CharacterViewModel?
 
         func flush() {
 
@@ -57,43 +57,45 @@ class CharacterViewModelTests: QuickSpec {
         }
 
         beforeSuite {
-            characterRequest = NSFetchRequest<Character>(entityName: Character.entityName)
             rawData = T.readLocalData(testCase: .characters)
             T.createInMemoryContainer(completion: { (container) in
                 persistentContainer = container
                 manager = PersistenceManager(store: persistentContainer!)
-                sut = CharacterMapper(storeManager: manager!)
-                sut?.parse(rawValue: rawData!)
-                sut?.persist(rawJson: (sut?.mappedValue)!)
+                mapper = CharacterMapper(storeManager: manager!)
+                mapper?.parse(rawValue: rawData!)
+                mapper?.persist(rawJson: (mapper?.mappedValue)!)
             })
         }
 
         beforeEach {
-            sut?.parse(rawValue: rawData!)
-            sut?.persist(rawJson: (sut?.mappedValue)!)
+            mapper?.parse(rawValue: rawData!)
+            mapper?.persist(rawJson: (mapper?.mappedValue)!)
         }
 
-        afterEach {
+        afterSuite {
             flush()
         }
 
         describe("GIVEN valid JSON that has been persisted") {
             context("WHEN we apply a series filter to the model") {
-                it("the character count for S01 is x") {
+                it("the character count for S01 is 26") {
                     waitUntil { done in
-                        characterRequest?.predicate = NSPredicate(format: "%K == %@", #keyPath(Character.name), "Walter White")
-                        let resSet = try! persistentContainer?.fetch(characterRequest!)
-                        let actual = resSet?.first
-                        expect(actual!.appearsIn(series: 2)).to(beTrue())
+                        sut = CharacterViewModel(ctx: persistentContainer!)
+                        sut?.seasonFilter = nil
+                        sut?.filterBySeason()
+                        expect(sut?.fetchedObjects.count).to(equal(63))
+                        sut?.seasonFilter = 1
+                        sut?.filterBySeason()
+                        expect(sut?.fetchedObjects.count).to(equal(26))
                         done()
                     }
                 }
-                it("the character count is S02 is x") {
+                it("the character count for S02 is 36") {
                     waitUntil { done in
-                        characterRequest?.predicate = NSPredicate(format: "%K == %@", #keyPath(Character.name), "Todd Alquist")
-                        let resSet = try! persistentContainer?.fetch(characterRequest!)
-                        let actual = resSet?.first
-                        expect(actual!.appearsIn(series: 2)).to(beFalse())
+                        sut = CharacterViewModel(ctx: persistentContainer!)
+                        sut?.seasonFilter = 2
+                        sut?.filterBySeason()
+                        expect(sut?.fetchedObjects.count).to(equal(36))
                         done()
                     }
                 }

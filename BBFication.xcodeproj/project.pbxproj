@@ -17,7 +17,7 @@
 		2B0D45E923AA7E75009EE438 /* CharacterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D45E823AA7E75009EE438 /* CharacterTests.swift */; platformFilter = ios; };
 		2B13FB1823B2615400865A3A /* badPayload.json in Resources */ = {isa = PBXBuildFile; fileRef = 2B13FB1723B2615400865A3A /* badPayload.json */; };
 		2B13FB3123B2811200865A3A /* CharacterPersistanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B13FB3023B2811200865A3A /* CharacterPersistanceTests.swift */; };
-		2B3C934123B7D1D500E26450 /* CharacterListVireModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3C934023B7D1D500E26450 /* CharacterListVireModel.swift */; };
+		2B3C934123B7D1D500E26450 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3C934023B7D1D500E26450 /* ListViewModel.swift */; };
 		2B98B26723AB8FC60010E7E1 /* CharacterMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B98B26623AB8FC60010E7E1 /* CharacterMapper.swift */; };
 		2B98B29523ACD1FD0010E7E1 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B98B29423ACD1FD0010E7E1 /* Appearance.swift */; };
 		2B98B29723ACD2130010E7E1 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B98B29623ACD2130010E7E1 /* Episode.swift */; };
@@ -191,7 +191,7 @@
 		2B0D45EB23AA894D009EE438 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2B13FB1723B2615400865A3A /* badPayload.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = badPayload.json; sourceTree = "<group>"; };
 		2B13FB3023B2811200865A3A /* CharacterPersistanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterPersistanceTests.swift; sourceTree = "<group>"; };
-		2B3C934023B7D1D500E26450 /* CharacterListVireModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CharacterListVireModel.swift; path = BBFicationTests/Persistance/CharacterListVireModel.swift; sourceTree = SOURCE_ROOT; };
+		2B3C934023B7D1D500E26450 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ListViewModel.swift; path = BBFicationTests/Persistance/ListViewModel.swift; sourceTree = SOURCE_ROOT; };
 		2B98B26623AB8FC60010E7E1 /* CharacterMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterMapper.swift; sourceTree = "<group>"; };
 		2B98B29423ACD1FD0010E7E1 /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Appearance.swift; path = BBFication/Models/Occupation/Appearance.swift; sourceTree = SOURCE_ROOT; };
 		2B98B29623ACD2130010E7E1 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Episode.swift; path = BBFication/Models/Occupation/Episode.swift; sourceTree = SOURCE_ROOT; };
@@ -426,7 +426,7 @@
 		2B98B2C323B7AADD0010E7E1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				2B3C934023B7D1D500E26450 /* CharacterListVireModel.swift */,
+				2B3C934023B7D1D500E26450 /* ListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -810,7 +810,7 @@
 				2BF5BAF023AA3C550040ACA7 /* PersistenceHelper.swift in Sources */,
 				2BF5BAC423A507910040ACA7 /* ContentView.swift in Sources */,
 				2B98B29923ACD21E0010E7E1 /* Show.swift in Sources */,
-				2B3C934123B7D1D500E26450 /* CharacterListVireModel.swift in Sources */,
+				2B3C934123B7D1D500E26450 /* ListViewModel.swift in Sources */,
 				2B98B29B23ACD22F0010E7E1 /* Season.swift in Sources */,
 				2B0D459723AA710E009EE438 /* Actor.swift in Sources */,
 			);

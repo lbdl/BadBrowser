@@ -1,5 +1,5 @@
 //
-//  CharacterListVireModel.swift
+//  ListViewModel.swift
 //  BBFication
 //
 //  Created by Timothy Storey on 28/12/2019.
@@ -16,8 +16,10 @@ class ListViewModel<R: Managed>: NSObject, NSFetchedResultsControllerDelegate, O
     
     private let controller: NSFetchedResultsController<R>
 
-    init(obj: R, ctx: ManagedContextProtocol) {
-        let request = NSFetchRequest<R>(entityName: R.entityName)
+    internal var _objects: [R]?
+
+    init(ctx: ManagedContextProtocol) {
+        let request = R.sortedFetchRequest
         self.controller = NSFetchedResultsController<R>(fetchRequest: request, managedObjectContext: ctx as! NSManagedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         super.init()
         controller.delegate = self
@@ -25,11 +27,16 @@ class ListViewModel<R: Managed>: NSObject, NSFetchedResultsControllerDelegate, O
     }
     
     var fetchedObjects: [R] {
-        return self.controller.fetchedObjects ?? []
+        guard let obj = _objects else {
+            _objects = self.controller.fetchedObjects ?? []
+            return _objects!
+        }
+        return obj
     }
-    
+
     // MARK: NSFetchedResultsControllerDelegate
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        _objects = self.controller.fetchedObjects ?? []
         objectWillChange.send()
     }
     
@@ -39,8 +46,7 @@ class ListViewModel<R: Managed>: NSObject, NSFetchedResultsControllerDelegate, O
 }
 
 protocol SeasonFilter {
-    associatedtype V
-    func filterBySeason(name: Int) -> [V]
+    func filterBySeason()
 }
 
 final class CharacterViewModel: ListViewModel<Character> {
@@ -48,11 +54,14 @@ final class CharacterViewModel: ListViewModel<Character> {
 }
 
 extension CharacterViewModel: SeasonFilter {
-    func filterBySeason(name: Int) -> [Character] {
-        return self.fetchedObjects.filter({
-            $0.appearsIn(series: name)
+    func filterBySeason() {
+        guard let f = seasonFilter else {return}
+
+        let filteredObjects = self.fetchedObjects.filter({
+            return $0.appearsIn(series: f)
         })
         
+        self._objects = filteredObjects
     }
 }
 
