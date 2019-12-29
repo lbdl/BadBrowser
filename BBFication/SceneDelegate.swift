@@ -14,16 +14,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var dataManager: DataManager?
 
+    // all this to pass an env var??? stupid
+    var ctx: ManagedContextProtocol?
+
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
                 PersistenceHelper.createProductionContainer{ container in
 
+                    self.ctx = container
                     
                     let persistenceManager = PersistenceManager(store: container)
                     let sessionManager = URLSession(configuration: URLSessionConfiguration.default)
                     let characterManager = AnyMapper(CharacterMapper(storeManager: persistenceManager))
-                    let characterListViewModel = CharacterViewModel(ctx: container)
+                    let viewModel = CharacterViewModel(ctx: container)
                     self.dataManager = DataManager(storeManager: persistenceManager, urlSession: sessionManager, parser: characterManager)
                     self.dataManager?.fetch()
                     let vc = MainContentView()
@@ -31,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     // Use a UIHostingController as window root view controller.
                     if let windowScene = scene as? UIWindowScene {
                         let window = UIWindow(windowScene: windowScene)
-                        window.rootViewController = UIHostingController(rootView: vc.environmentObject(characterListViewModel))
+                        window.rootViewController = UIHostingController(rootView: vc.environmentObject(viewModel))
                         self.window = window
                         window.makeKeyAndVisible()
                     }

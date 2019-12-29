@@ -41,7 +41,7 @@ enum EndPoint: String {
 ///
 /// Data fetched is stored in CoreData. The views should be updated via a fetched results controller.
 
-class DataManager: NSObject, DataControllerPrototcol, ObservableObject {
+class DataManager: NSObject, DataControllerPrototcol {
     let persistenceManager: PersistenceControllerProtocol
     let dataSession: URLSessionProtocol
     let characterHandler: AnyMapper<Mapped<[CharacterRaw]>>

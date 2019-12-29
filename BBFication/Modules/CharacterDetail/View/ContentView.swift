@@ -30,7 +30,11 @@ struct MainContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+
     static var previews: some View {
+        let scene = UIApplication.shared.connectedScenes.first
+        let sd = scene!.delegate as! SceneDelegate
+        let vm = CharacterViewModel(ctx: sd.dataManager!.persistenceManager.context)
         MainContentView()
     }
 }
