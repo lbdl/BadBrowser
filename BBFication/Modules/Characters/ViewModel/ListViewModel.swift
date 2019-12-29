@@ -45,24 +45,3 @@ class ListViewModel<R: Managed>: NSObject, NSFetchedResultsControllerDelegate, O
     
 }
 
-protocol SeasonFilter {
-    func filterBySeason()
-}
-
-final class CharacterViewModel: ListViewModel<Character> {
-    var seasonFilter: Int?
-}
-
-extension CharacterViewModel: SeasonFilter {
-    func filterBySeason() {
-        guard let f = seasonFilter else {return}
-
-        let filteredObjects = self.fetchedObjects.filter({
-            return $0.appearsIn(series: f)
-        })
-        
-        self._objects = filteredObjects
-    }
-}
-
-

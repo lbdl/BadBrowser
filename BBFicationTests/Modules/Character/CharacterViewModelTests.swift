@@ -78,7 +78,7 @@ class CharacterViewModelTests: QuickSpec {
 
         describe("GIVEN valid JSON that has been persisted") {
             context("WHEN we apply a series filter to the model") {
-                it("the character count for S01 is 26") {
+                it("the character count for S01 is 26 and the unfiltered count is 63") {
                     waitUntil { done in
                         sut = CharacterViewModel(ctx: persistentContainer!)
                         sut?.seasonFilter = nil
