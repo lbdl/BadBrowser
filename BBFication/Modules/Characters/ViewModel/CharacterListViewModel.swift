@@ -18,7 +18,7 @@ final class CharacterViewModel: ListViewModel<Character> {
 
 extension CharacterViewModel: SeasonFilter {
     func filterBySeason() {
-        guard let f = seasonFilter else {return}
+        guard let f = seasonFilter, f > 0 else {return}
         let filteredObjects = self.fetchedObjects.filter({
             return $0.appearsIn(series: f)
         })

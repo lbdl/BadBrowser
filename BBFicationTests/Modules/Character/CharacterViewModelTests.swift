@@ -99,6 +99,15 @@ class CharacterViewModelTests: QuickSpec {
                         done()
                     }
                 }
+                it("the character count for filter 0 is 63") {
+                    waitUntil { done in
+                        sut = CharacterViewModel(ctx: persistentContainer!)
+                        sut?.seasonFilter = 0
+                        sut?.filterBySeason()
+                        expect(sut?.fetchedObjects.count).to(equal(63))
+                        done()
+                    }
+                }
             }
 
         }
