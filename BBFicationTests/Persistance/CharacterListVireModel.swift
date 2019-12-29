@@ -43,7 +43,9 @@ protocol SeasonFilter {
     func filterBySeason(name: Int) -> [V]
 }
 
-final class CharacterViewModel: ListViewModel<Character> {}
+final class CharacterViewModel: ListViewModel<Character> {
+    var seasonFilter: Int?
+}
 
 extension CharacterViewModel: SeasonFilter {
     func filterBySeason(name: Int) -> [Character] {
