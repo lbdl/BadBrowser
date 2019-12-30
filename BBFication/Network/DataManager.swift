@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-protocol DataControllerPrototcol {
+protocol DataControllerProtocol {
     func fetch()
 }
 
@@ -41,10 +41,10 @@ enum EndPoint: String {
 ///
 /// Data fetched is stored in CoreData. The views should be updated via a fetched results controller.
 
-class DataManager: NSObject, DataControllerPrototcol {
+class DataManager<T>: NSObject, DataControllerProtocol {
     let persistenceManager: PersistenceControllerProtocol
     let dataSession: URLSessionProtocol
-    let characterHandler: AnyMapper<Mapped<[CharacterRaw]>>
+    let characterHandler: AnyMapper<Mapped<[T]>>
 
     private let scheme: String = "https"
     private let host: String = "breakingbadapi.com"
@@ -56,7 +56,7 @@ class DataManager: NSObject, DataControllerPrototcol {
     ///     - networkManager: an object conforming to the URLSessionProtocol that fetches data
     ///     - configuration: a enumeration defining the tyle of sessionPersistenceManager, in this case default
     ///     - parser: a object conforming to the JSONMapper protocol passed as Type Erased object as we use associated types in the protocol
-    required init(storeManager: PersistenceControllerProtocol, urlSession: URLSessionProtocol, configuration: SessionType = .sharedSession, parser: AnyMapper<Mapped<[CharacterRaw]>>) {
+    required init(storeManager: PersistenceControllerProtocol, urlSession: URLSessionProtocol, configuration: SessionType = .sharedSession, parser: AnyMapper<Mapped<[T]>>) {
         persistenceManager = storeManager
         dataSession = urlSession
         characterHandler = parser

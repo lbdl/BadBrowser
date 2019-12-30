@@ -30,7 +30,6 @@ final class Episode: NSManagedObject {
     }
 
     static func fetchSeason(forID seasonId: Int, fromManager manager: PersistenceControllerProtocol, withJSON raw: EpisodeRaw) -> Season {
-        let predicate = NSPredicate(format: "%K == %d", #keyPath(id), seasonId)
         let season = Season.insert(into: manager, raw: SeasonRaw(name: raw.season, show: raw.show))
         return season
     }

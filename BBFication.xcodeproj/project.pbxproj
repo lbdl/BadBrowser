@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B0795AB23B945D500D90B4B /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2B0795AA23B945D500D90B4B /* URLImage */; };
 		2B0D459323AA70F3009EE438 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D459223AA70F3009EE438 /* Character.swift */; };
 		2B0D459523AA7103009EE438 /* Occupation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D459423AA7103009EE438 /* Occupation.swift */; };
 		2B0D459723AA710E009EE438 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0D459623AA710E009EE438 /* Actor.swift */; };
@@ -228,6 +229,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B0795AB23B945D500D90B4B /* URLImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,6 +571,9 @@
 			dependencies = (
 			);
 			name = BBFication;
+			packageProductDependencies = (
+				2B0795AA23B945D500D90B4B /* URLImage */,
+			);
 			productName = BBFication;
 			productReference = 2BF5BABC23A507910040ACA7 /* BBFication.app */;
 			productType = "com.apple.product-type.application";
@@ -619,6 +624,9 @@
 				Base,
 			);
 			mainGroup = 2BF5BAB323A507910040ACA7;
+			packageReferences = (
+				2B0795A923B945D500D90B4B /* XCRemoteSwiftPackageReference "url-image" */,
+			);
 			productRefGroup = 2BF5BABD23A507910040ACA7 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -1084,6 +1092,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2B0795A923B945D500D90B4B /* XCRemoteSwiftPackageReference "url-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmytro-anokhin/url-image.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.9;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2B0795AA23B945D500D90B4B /* URLImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2B0795A923B945D500D90B4B /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		2BF5BAE123AA32570040ACA7 /* BBModel.xcdatamodeld */ = {

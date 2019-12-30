@@ -20,4 +20,6 @@ Datatypes get handled by creeating a `TypeRaw` struct that handles the JSON deco
 
 The mapping of JSON data to objects is handled in a Types given Mapper i.e. `<TYPE>` has another file `<TYPEMAPPER>` that is reponsible for... mapping acheieved using the DECODABLE protocol and a class that then handles feeding the data into the backing store.
 
-In terms of filter functionality it is assumed that the user wishes to filter the result set based on Breaking Bad series not  on Better Caul Saul series.
+In terms of filter functionality it is assumed that the user wishes to filter the result set based on Breaking Bad series not  on Better Call Saul series.
+
+Should update the parsing and persisting to use batch updates `NSBatchInsertRequest` if possible but cant because of the models relationships

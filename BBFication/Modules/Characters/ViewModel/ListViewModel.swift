@@ -15,12 +15,14 @@ import Combine
 class ListViewModel<R: Managed>: NSObject, NSFetchedResultsControllerDelegate, ObservableObject {
     
     private let controller: NSFetchedResultsController<R>
+    var passthroughSubject: PassthroughSubject<[R], Never>
 
-    internal var _objects: [R]?
+    internal var _objects: [R]!
 
     init(ctx: ManagedContextProtocol) {
         let request = R.sortedFetchRequest
         self.controller = NSFetchedResultsController<R>(fetchRequest: request, managedObjectContext: ctx as! NSManagedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        self.passthroughSubject = PassthroughSubject<[R], Never>()
         super.init()
         controller.delegate = self
         try? controller.performFetch()
@@ -29,21 +31,18 @@ class ListViewModel<R: Managed>: NSObject, NSFetchedResultsControllerDelegate, O
      var fetchedObjects: [R] {
         guard let obj = _objects else {
             _objects = self.controller.fetchedObjects ?? []
-            return _objects!
+            return _objects
         }
         return obj
     }
-
+    
     // MARK: NSFetchedResultsControllerDelegate
     // when we receive an update from the controller we
     // pass through using the Publisher
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         _objects = self.controller.fetchedObjects ?? []
-        objectWillChange.send()
+        passthroughSubject.send(_objects!)
     }
-    
-    // MARK: ObservableObject
-    var objectWillChange = ObservableObjectPublisher()
-    
+
 }
 
