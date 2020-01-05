@@ -14,6 +14,7 @@ final class Character: NSManagedObject {
     @NSManaged fileprivate(set) var birthday: String
     @NSManaged fileprivate(set) var status: String
     @NSManaged fileprivate(set) var name: String
+    @NSManaged fileprivate(set) var nickname: String
     @NSManaged fileprivate(set) var img_url: String
     @NSManaged fileprivate(set) var actor: Actor
     @NSManaged fileprivate(set) var occupations: Set<Occupation>
@@ -31,6 +32,7 @@ final class Character: NSManagedObject {
             $0.birthday = raw.birthday != $0.birthday ? raw.birthday : $0.birthday
             $0.status = raw.status != $0.status ? raw.status : $0.status
             $0.name = raw.name != $0.name ? raw.name : $0.name
+            $0.nickname = raw.nickname != $0.nickname ? raw.nickname : $0.nickname
             $0.img_url = raw.img_url != $0.img_url ? raw.img_url : $0.status
             $0.cId = raw.id != $0.cId ? Int32(raw.id) : $0.cId
             $0.actor = makeActor(raw: raw.actor, manager: manager)
@@ -58,13 +60,13 @@ final class Character: NSManagedObject {
         var appearancesArr = [Appearance]()
         _ = raw.BBSeasons.map({
             let uid = manager.uid()
-            let app = Appearance.fetchAppearance(forID: uid, fromManager: manager , withData: AppearanceRaw(id: uid, show: "Breaking Bad", season: $0))
+            let app = Appearance.fetchAppearance(forID: uid, fromManager: manager , withData: AppearanceRaw(name: uid, show: "Breaking Bad", season: $0))
             appearancesArr.append(app)
         })
     
         _ = raw.BCSSeasons.map({
             let uid = manager.uid()
-            let app = Appearance.fetchAppearance(forID: uid, fromManager: manager , withData: AppearanceRaw(id: uid, show: "Better Call Saul", season: $0))
+            let app = Appearance.fetchAppearance(forID: uid, fromManager: manager , withData: AppearanceRaw(name: uid, show: "Better Call Saul", season: $0))
             appearancesArr.append(app)
         })
         return appearancesArr

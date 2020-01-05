@@ -60,6 +60,7 @@ class CharacterTests: QuickSpec {
                                 expect(actual.id).to(equal(1))
                                 expect(actual.actor).to(equal("Bryan Cranston"))
                                 expect(actual.name).to(equal("Walter White"))
+                                expect(actual.nickname).to(equal("Heisenberg"))
                                 expect(actual.occupations.count).to(equal(2))
                                 expect(actual.occupations.last!).to(equal("Meth King Pin"))
                                 //rest of attributes elided...

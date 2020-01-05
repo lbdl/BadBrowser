@@ -10,22 +10,22 @@ import Foundation
 import CoreData
 
 final class Appearance: NSManagedObject {
-    @NSManaged fileprivate(set) var id: String
+    @NSManaged fileprivate(set) var name: String
     @NSManaged fileprivate(set) var character: Character
     @NSManaged fileprivate(set) var episode: Episode
 
     static func insert(into manager: PersistenceControllerProtocol, raw: AppearanceRaw) -> Appearance {
-        let appearance: Appearance = Appearance.fetchAppearance(forID: raw.id, fromManager: manager, withData: raw)
+        let appearance: Appearance = Appearance.fetchAppearance(forID: raw.name, fromManager: manager, withData: raw)
         return appearance
     }
 
     static func fetchAppearance(forID appearanceId: String, fromManager manager: PersistenceControllerProtocol, withData raw: AppearanceRaw) -> Appearance {
-        let predicate = NSPredicate(format: "%K == %d", #keyPath(id), appearanceId)
+        let predicate = NSPredicate(format: "%K == %d", #keyPath(name), appearanceId)
         let appearance = fetchOrCreate(fromManager: manager, matching: predicate){
-            $0.id = raw.id != $0.id ? raw.id : $0.id
+            $0.name = raw.name != $0.name ? raw.name : $0.name
             if !($0.episode.season.show.name == raw.show && raw.season == $0.episode.season.name) {
                 let epID = manager.uid()
-                $0.episode = Episode.fetchEpisode(forID: epID, fromManager: manager, withJSON: EpisodeRaw(id: epID, show: raw.show, season: raw.season))
+                $0.episode = Episode.fetchEpisode(forID: epID, fromManager: manager, withJSON: EpisodeRaw(eId: epID, show: raw.show, season: raw.season))
             }
         }
         return appearance
@@ -35,7 +35,7 @@ final class Appearance: NSManagedObject {
 
 extension Appearance: Managed {
     static var defaultSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(key: #keyPath(id), ascending: true)]
+        return [NSSortDescriptor(key: #keyPath(name), ascending: true)]
     }
 
     static var entityName = "Appearance"
@@ -43,7 +43,7 @@ extension Appearance: Managed {
 }
 
 struct AppearanceRaw {
-    let id: String
+    let name: String
     let show: String
     let season: Int
 }

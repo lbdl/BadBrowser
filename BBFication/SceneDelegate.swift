@@ -9,6 +9,9 @@
 import UIKit
 import SwiftUI
 
+/// the data manager is not made available to the stack
+/// this is because I havent figured out a noce way to do it using SwiftUI
+/// we might use the @EnvironmentObject perhaps, requires some more playing.
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?

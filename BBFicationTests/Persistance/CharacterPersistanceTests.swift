@@ -106,6 +106,7 @@ class CharacterPersistanceTests: QuickSpec {
                         let actual = res?.first
                         expect(actual!.occupations.count).to(equal(2))
                         expect(actual!.appearances.count).to(equal(5))
+                        expect(actual!.nickname).to(equal("Heisenberg"))
                         done()
                     }
                 }

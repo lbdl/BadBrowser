@@ -10,19 +10,19 @@ import Foundation
 import CoreData
 
 final class Episode: NSManagedObject {
-    @NSManaged fileprivate(set) var id: String
+    @NSManaged fileprivate(set) var eId: String
     @NSManaged fileprivate(set) var season: Season
     @NSManaged fileprivate(set) var appearances: Set<Appearance>
 
     static func insert(into manager: PersistenceControllerProtocol, raw: EpisodeRaw) -> Episode {
-        let episode: Episode = fetchEpisode(forID: raw.id, fromManager: manager, withJSON: raw)
+        let episode: Episode = fetchEpisode(forID: raw.eId, fromManager: manager, withJSON: raw)
         return episode
     }
 
     static func fetchEpisode(forID epID: String, fromManager manager: PersistenceControllerProtocol, withJSON raw: EpisodeRaw) -> Episode {
-        let predicate = NSPredicate(format: "%K == %@", #keyPath(id), epID)
+        let predicate = NSPredicate(format: "%K == %@", #keyPath(eId), epID)
         let episode = fetchOrCreate(fromManager: manager, matching: predicate) {
-            $0.id = raw.id != $0.id ? raw.id : $0.id
+            $0.eId = raw.eId != $0.eId ? raw.eId : $0.eId
             $0.season = raw.season == $0.season.name ? $0.season : fetchSeason(forID: raw.season, fromManager: manager, withJSON: raw)
 
         }
@@ -37,7 +37,7 @@ final class Episode: NSManagedObject {
 
 extension Episode: Managed {
     static var defaultSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(key: #keyPath(id), ascending: true)]
+        return [NSSortDescriptor(key: #keyPath(eId), ascending: true)]
     }
     
     static var entityName = "Episode"
@@ -45,7 +45,7 @@ extension Episode: Managed {
 
 
 struct EpisodeRaw {
-    let id:String
+    let eId:String
     let show: String
     let season: Int
 }

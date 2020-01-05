@@ -63,13 +63,14 @@ struct CharacterRaw: Decodable {
         case BCSSeasons = "better_call_saul_appearance"
         case actorName = "portrayed"
         case BBSeasons = "appearance"
-
+        case nickname = "nickname"
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try! container.decode(Int.self, forKey: .id)
         name = try! container.decode(String.self, forKey: .name)
+        nickname = try! container.decode(String.self, forKey: .nickname)
         birthday = try! container.decode(String.self, forKey: .birthday)
         img_url = try! container.decode(String.self, forKey: .img_url)
         occupations = try! container.decode([String].self, forKey: .occupationStrings)
@@ -81,6 +82,7 @@ struct CharacterRaw: Decodable {
 
     let id: Int
     let name: String
+    let nickname: String
     let birthday: String
     let status: String
     let img_url: String

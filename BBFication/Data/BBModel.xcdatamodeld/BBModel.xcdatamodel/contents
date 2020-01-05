@@ -5,7 +5,7 @@
         <relationship name="characters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Character" inverseName="actor" inverseEntity="Character"/>
     </entity>
     <entity name="Appearance" representedClassName=".Appearance" syncable="YES">
-        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="character" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Character" inverseName="appearances" inverseEntity="Character"/>
         <relationship name="episode" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Episode" inverseName="appearances" inverseEntity="Episode"/>
     </entity>
@@ -14,13 +14,14 @@
         <attribute name="cId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="img_url" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="nickname" optional="YES" attributeType="String"/>
         <attribute name="status" optional="YES" attributeType="String"/>
         <relationship name="actor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Actor" inverseName="characters" inverseEntity="Actor"/>
         <relationship name="appearances" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Appearance" inverseName="character" inverseEntity="Appearance"/>
         <relationship name="occupations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Occupation" inverseName="character" inverseEntity="Occupation"/>
     </entity>
     <entity name="Episode" representedClassName=".Episode" syncable="YES">
-        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="eId" optional="YES" attributeType="String"/>
         <relationship name="appearances" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Appearance" inverseName="episode" inverseEntity="Appearance"/>
         <relationship name="season" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Season" inverseName="episodes" inverseEntity="Season"/>
     </entity>
@@ -40,7 +41,7 @@
     <elements>
         <element name="Actor" positionX="-977.25" positionY="201.99609375" width="128" height="28"/>
         <element name="Appearance" positionX="-747" positionY="90" width="128" height="88"/>
-        <element name="Character" positionX="-958.421875" positionY="-56.56640625" width="104.53125" height="163"/>
+        <element name="Character" positionX="-958.421875" positionY="-56.56640625" width="104.53125" height="178"/>
         <element name="Episode" positionX="-783" positionY="9" width="128" height="88"/>
         <element name="Occupation" positionX="-504.55859375" positionY="23.95703125" width="128" height="73"/>
         <element name="Season" positionX="-765" positionY="27" width="128" height="88"/>

@@ -374,7 +374,6 @@
 			isa = PBXGroup;
 			children = (
 				2B98B2BE23B7AA8A0010E7E1 /* Common */,
-				2B98B2C123B7AACB0010E7E1 /* CharacterDetail */,
 				2B98B2BB23B795080010E7E1 /* Characters */,
 			);
 			path = Modules;
@@ -412,29 +411,6 @@
 				2BF5BAC323A507910040ACA7 /* ContentView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		2B98B2C123B7AACB0010E7E1 /* CharacterDetail */ = {
-			isa = PBXGroup;
-			children = (
-				2B98B2C223B7AAD60010E7E1 /* View */,
-				2B98B2C323B7AADD0010E7E1 /* ViewModel */,
-			);
-			path = CharacterDetail;
-			sourceTree = "<group>";
-		};
-		2B98B2C223B7AAD60010E7E1 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		2B98B2C323B7AADD0010E7E1 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		2B98B2C423B7AB520010E7E1 /* Modules */ = {
