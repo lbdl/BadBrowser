@@ -37,3 +37,5 @@
 * The networking stack is not handed down the VC stack, this is fugly and needs a rework.
 
 * The networking stack should be refactored to use `Combine` anyway so it's left as is.
+
+* Layout? Least said the better !
