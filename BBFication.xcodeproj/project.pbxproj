@@ -409,6 +409,7 @@
 		2B98B2C023B7AAB40010E7E1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2BF5BAC323A507910040ACA7 /* ContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -425,7 +426,6 @@
 		2B98B2C223B7AAD60010E7E1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2BF5BAC323A507910040ACA7 /* ContentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

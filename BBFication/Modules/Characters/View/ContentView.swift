@@ -9,17 +9,19 @@
 import SwiftUI
 
 struct MainContentView: View {
+    
     @EnvironmentObject var viewModel: CharacterViewModel
+    @State var season: Int?
 
     var body: some View {
         NavigationView {
             List {
-                Picker(selection: $viewModel.seasonFilter, label: Text("Select Season")) {
+                Picker(selection: $season, label: Text("Select Season")) {
                         ForEach(0..<viewModel.availableSeasons.count) {
                             Text("\(self.viewModel.availableSeasons[$0])")
                         }
-                    }
-            }.navigationBarTitle("Chose a season (0 is all)")
+                }.pickerStyle(SegmentedPickerStyle())
+                }.navigationBarTitle("Season Filter (0 is all)")
         }
     }
 }
@@ -33,11 +35,7 @@ struct MainContentView: View {
 //}
 
 //struct ContentView_Previews: PreviewProvider {
-//
 //    static var previews: some View {
-////        let scene = UIApplication.shared.connectedScenes.first
-////        let sd = scene!.delegate as! SceneDelegate
-////        let vm = CharacterViewModel(ctx: sd.dataManager!.persistenceManager.context)
-//        MainContentView().environmentObject(ViewModelMock())
+//        MainContentView().environmentObject(CharacterViewModel(@Environment(\.managedObjectContext)))
 //    }
 //}

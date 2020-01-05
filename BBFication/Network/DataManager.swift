@@ -67,6 +67,7 @@ class DataManager<T>: NSObject, DataControllerProtocol {
     /// Furthermore it should handle server codes other than straight success, namely 300, 400, 500 and the like
     /// however it doesn't, its naive and trusting **AKA** "I'm being lazy"
     /// - Returns: void
+    /// this could be reafctored to use combine but in this version is not
     func fetch()  {
         guard let url = buildURL(forEndPoint: .characters) else { return }
         guard let request = makeRequest(fromUrl: url) else { return }

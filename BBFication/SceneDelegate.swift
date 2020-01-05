@@ -21,7 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     let sessionManager = URLSession(configuration: URLSessionConfiguration.default)
                     let characterManager = AnyMapper(CharacterMapper(storeManager: persistenceManager))
                     let dataManager = DataManager(storeManager: persistenceManager, urlSession: sessionManager, parser: characterManager)
-                    let viewModel = CharacterViewModel(ctx: container)
+                    dataManager.fetch()
+                    let viewModel = CharacterViewModel(container)
                     let vc = MainContentView()
                     
                     // Use a UIHostingController as window root view controller.

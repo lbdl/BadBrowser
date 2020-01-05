@@ -11,7 +11,8 @@ import CoreData
 import SwiftUI
 import Combine
 
-
+/// we could use a @FetchedResult in the model but we are using a fetchedresultscontroller because
+/// I havent experimented enough with doing the same with a @FetchedResult
 class ListViewModel<R: Managed>: NSObject, NSFetchedResultsControllerDelegate, ObservableObject {
     
     private let controller: NSFetchedResultsController<R>
@@ -19,7 +20,7 @@ class ListViewModel<R: Managed>: NSObject, NSFetchedResultsControllerDelegate, O
 
     internal var _objects: [R]!
 
-    init(ctx: ManagedContextProtocol) {
+    init(_ ctx: ManagedContextProtocol) {
         let request = R.sortedFetchRequest
         self.controller = NSFetchedResultsController<R>(fetchRequest: request, managedObjectContext: ctx as! NSManagedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         self.passthroughSubject = PassthroughSubject<[R], Never>()
