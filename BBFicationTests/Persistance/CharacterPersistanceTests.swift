@@ -101,7 +101,7 @@ class CharacterPersistanceTests: QuickSpec {
                 }
                 it("creates the Bryan Cranston Character correctly"){
                     waitUntil { done in
-                        characterRequest?.predicate = NSPredicate(format: "%K == %d",#keyPath(Character.id), 1)
+                        characterRequest?.predicate = NSPredicate(format: "%K == %d",#keyPath(Character.cId), 1)
                         let res = try! persistentContainer?.fetch(characterRequest!)
                         let actual = res?.first
                         expect(actual!.occupations.count).to(equal(2))
@@ -112,7 +112,7 @@ class CharacterPersistanceTests: QuickSpec {
                 it("Walter White has the correct Actor") {
                     waitUntil { done in
                         let expectedName = "Bryan Cranston"
-                        characterRequest?.predicate = NSPredicate(format: "%K == %d", #keyPath(Character.id), 1)
+                        characterRequest?.predicate = NSPredicate(format: "%K == %d", #keyPath(Character.cId), 1)
                         let res = try! persistentContainer?.fetch(characterRequest!)
                         let character = res?.first!
                         let actorReq = NSFetchRequest<Actor>(entityName: Actor.entityName)
@@ -126,7 +126,7 @@ class CharacterPersistanceTests: QuickSpec {
                 }
                 it("Walter White appears in all the shows seasons") {
                     waitUntil{ done in
-                        characterRequest?.predicate = NSPredicate(format: "%K == %d", #keyPath(Character.id), 1)
+                        characterRequest?.predicate = NSPredicate(format: "%K == %d", #keyPath(Character.cId), 1)
                         let res = try! persistentContainer?.fetch(characterRequest!)
                         let character = res?.first!
                         _ = character?.appearances.map{

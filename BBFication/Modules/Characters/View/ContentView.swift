@@ -11,7 +11,7 @@ import SwiftUI
 struct MainContentView: View {
     
     @EnvironmentObject var viewModel: CharacterViewModel
-    @State var season: Int?
+    @State var season = 0
 
     var body: some View {
         NavigationView {
@@ -21,10 +21,14 @@ struct MainContentView: View {
                             Text("\(self.viewModel.availableSeasons[$0])")
                         }
                 }.pickerStyle(SegmentedPickerStyle())
+                ForEach(viewModel.filterBySeason(filter: $season.wrappedValue), id: \.cId) {
+                    Text("\($0.name)")
+                }
                 }.navigationBarTitle("Season Filter (0 is all)")
         }
     }
 }
+
 
 //struct CharacterView: View {
 //    @EnvironmentObject var viewModel: CharacterViewModel

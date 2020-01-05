@@ -9,20 +9,18 @@
 import Foundation
 
 protocol SeasonFilter {
-    func filterBySeason(filter: Int)
+    func filterBySeason(filter: Int) -> [Character]
 }
 
 final class CharacterViewModel: ListViewModel<Character> {
+    var filteredObjects: [Character]?
     let availableSeasons:[Int] = [0,1,2,3,4,5]
-    //let dataManager: DataControllerPrototcol
 }
 
 extension CharacterViewModel: SeasonFilter {
-    func filterBySeason(filter: Int) {
-//        guard case let f = filter > 0 else {return}
-//        let filteredObjects = self.fetchedObjects.filter({
-//            return $0.appearsIn(series: f)
-//        })
-//        self._objects = filteredObjects
+    func filterBySeason(filter: Int) -> [Character] {
+        filteredObjects = filter == 0 ? self.fetchedObjects : self.fetchedObjects.filter({return $0.appearsIn(series: filter) })
+        return filteredObjects ?? []
     }
+
 }

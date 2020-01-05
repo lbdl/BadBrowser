@@ -71,8 +71,8 @@ class DataManager<T>: NSObject, DataControllerProtocol {
     func fetch()  {
         guard let url = buildURL(forEndPoint: .characters) else { return }
         guard let request = makeRequest(fromUrl: url) else { return }
-        let task = dataSession.dataTask(with: request) { [weak self] (data, response, error) in
-            guard let strongSelf = self else { return }
+        let task = dataSession.dataTask(with: request) {(data, response, error) in
+            let strongSelf = self
             if error == nil  {
                 guard let urlResponse = response as? HTTPURLResponse else { return }
                 if  200...299 ~= urlResponse.statusCode {

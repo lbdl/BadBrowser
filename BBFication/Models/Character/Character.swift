@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 final class Character: NSManagedObject {
-    @NSManaged fileprivate(set) var id: Int32
+    @NSManaged fileprivate(set) var cId: Int32
     @NSManaged fileprivate(set) var birthday: String
     @NSManaged fileprivate(set) var status: String
     @NSManaged fileprivate(set) var name: String
@@ -25,14 +25,14 @@ final class Character: NSManagedObject {
     }
 
     static func fetchCharacter(forID characterId: Int, fromManager manager: PersistenceControllerProtocol, withData raw: CharacterRaw) -> Character {
-        let predicate = NSPredicate(format: "%K == %d", #keyPath(id), characterId)
+        let predicate = NSPredicate(format: "%K == %d", #keyPath(cId), characterId)
         let character = fetchOrCreate(fromManager: manager, matching: predicate){
             //fresh baked so add simple fields
             $0.birthday = raw.birthday != $0.birthday ? raw.birthday : $0.birthday
             $0.status = raw.status != $0.status ? raw.status : $0.status
             $0.name = raw.name != $0.name ? raw.name : $0.name
             $0.img_url = raw.img_url != $0.img_url ? raw.img_url : $0.status
-            $0.id = raw.id != $0.id ? Int32(raw.id) : $0.id
+            $0.cId = raw.id != $0.cId ? Int32(raw.id) : $0.cId
             $0.actor = makeActor(raw: raw.actor, manager: manager)
             $0.occupations = Set(makeOccupations(raw: raw.occupations, manager: manager))
             $0.appearances = Set(makeAppearances(raw: raw, manager: manager))
@@ -75,7 +75,7 @@ final class Character: NSManagedObject {
 
 extension Character: Managed {
     static var defaultSortDescriptors: [NSSortDescriptor] {
-        return [NSSortDescriptor(key: #keyPath(id), ascending: true)]
+        return [NSSortDescriptor(key: #keyPath(name), ascending: true)]
     }
 
     // overidden to stop odd test failures using in memory store DB

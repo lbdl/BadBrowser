@@ -30,7 +30,7 @@ class ListViewModel<R: Managed>: NSObject, NSFetchedResultsControllerDelegate, O
     }
     
      var fetchedObjects: [R] {
-        guard let obj = _objects else {
+        guard let obj = _objects, obj.count > 0 else {
             _objects = self.controller.fetchedObjects ?? []
             return _objects
         }

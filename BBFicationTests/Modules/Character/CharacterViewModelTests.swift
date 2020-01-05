@@ -80,31 +80,27 @@ class CharacterViewModelTests: QuickSpec {
             context("WHEN we apply a series filter to the model") {
                 it("the character count for S01 is 26 and the unfiltered count is 63") {
                     waitUntil { done in
-                        sut = CharacterViewModel(ctx: persistentContainer!)
-                        sut?.seasonFilter = nil
-                        sut?.filterBySeason()
-                        expect(sut?.fetchedObjects.count).to(equal(63))
-                        sut?.seasonFilter = 1
-                        sut?.filterBySeason()
-                        expect(sut?.fetchedObjects.count).to(equal(26))
+                        sut = CharacterViewModel(persistentContainer!)
+                        let seasons = sut?.filterBySeason(filter: 0)
+                        expect(seasons?.count).to(equal(63))
+                        let season1 = sut?.filterBySeason(filter: 1)
+                        expect(season1?.count).to(equal(26))
                         done()
                     }
                 }
                 it("the character count for S02 is 36") {
                     waitUntil { done in
-                        sut = CharacterViewModel(ctx: persistentContainer!)
-                        sut?.seasonFilter = 2
-                        sut?.filterBySeason()
-                        expect(sut?.fetchedObjects.count).to(equal(36))
+                        sut = CharacterViewModel(persistentContainer!)
+                        let s02 = sut?.filterBySeason(filter: 2)
+                        expect(s02?.count).to(equal(36))
                         done()
                     }
                 }
                 it("the character count for filter 0 is 63") {
                     waitUntil { done in
-                        sut = CharacterViewModel(ctx: persistentContainer!)
-                        sut?.seasonFilter = 0
-                        sut?.filterBySeason()
-                        expect(sut?.fetchedObjects.count).to(equal(63))
+                        sut = CharacterViewModel(persistentContainer!)
+                        let s = sut?.filterBySeason(filter: 0)
+                        expect(s?.count).to(equal(63))
                         done()
                     }
                 }
